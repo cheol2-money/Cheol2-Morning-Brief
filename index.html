@@ -184,27 +184,70 @@
       border-bottom: 1px solid var(--border);
       text-transform: uppercase;
     }
-    /* 지수/원자재 행: grid 3컬럼 고정 - 이름 | 가격 | 등락 */
-    .idx-row, .cmd-row {
+    /* ── 지수 카드 그리드 ── */
+    .idx-grid {
       display: grid;
-      grid-template-columns: 1fr 160px 200px;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 10px 12px;
+    }
+    .idx-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 12px 14px;
+      transition: border-color .15s;
+    }
+    .idx-card:hover { border-color: rgba(255,255,255,.2); }
+    .idx-card-header {
+      font-size: 13px; color: var(--text-muted);
+      font-weight: 600; margin-bottom: 6px;
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+    }
+    .idx-card-price {
+      font-family: var(--mono); font-size: 22px; font-weight: 700;
+      color: var(--text); margin-bottom: 5px; white-space:nowrap;
+    }
+    .idx-card-chg {
+      font-family: var(--mono); font-size: 13px; white-space:nowrap;
+      display: flex; align-items: center; gap: 4px;
+    }
+    .idx-card-chg.up   { color: #e02020; }
+    .idx-card-chg.down { color: #2060ff; }
+    .idx-card-chg.flat { color: var(--text-muted); }
+    body.light .idx-card-chg.up   { color: #cc0000; }
+    body.light .idx-card-chg.down { color: #0040cc; }
+
+    /* ── 원자재/금리 행 ── */
+    .cmd-row {
+      display: grid;
+      grid-template-columns: 1fr 140px 190px;
       align-items: center;
-      padding: 8px 14px;
+      padding: 9px 14px;
       border-bottom: 1px solid var(--border);
       transition: background .15s;
     }
-    .idx-row:hover, .cmd-row:hover { background: rgba(255,255,255,.03); }
-    .idx-row:last-child, .cmd-row:last-child { border-bottom: none; }
-    .idx-left  { min-width: 0; }
-    .idx-name  { font-size: 15px; color: var(--text); font-weight: 600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .idx-sub   { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top:1px; }
-    .idx-price { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); white-space:nowrap; text-align:right; padding-right:16px; }
-    .idx-chg   { font-family: var(--mono); font-size: 12px; white-space:nowrap; text-align:right; }
-    .idx-chg.up   { color: #e02020; }
-    .idx-chg.down { color: #2060ff; }
-    .idx-chg.flat { color: var(--text-muted); }
-    body.light .idx-chg.up   { color: #cc0000; }
-    body.light .idx-chg.down { color: #0040cc; }
+    .cmd-row:hover { background: rgba(255,255,255,.03); }
+    .cmd-row:last-child { border-bottom: none; }
+    .cmd-name { font-size: 14px; color: var(--text); font-weight: 600; }
+    .cmd-sub  { font-family: var(--mono); font-size: 10px; color: var(--text-muted); margin-top:2px; }
+    .cmd-price { font-family: var(--mono); font-size: 15px; font-weight: 600;
+                 color: var(--text); text-align:right; padding-right:14px; white-space:nowrap; }
+    .cmd-chg  { font-family: var(--mono); font-size: 12px; text-align:right; white-space:nowrap; }
+    .cmd-chg.up   { color: #e02020; }
+    .cmd-chg.down { color: #2060ff; }
+    .cmd-chg.flat { color: var(--text-muted); }
+    body.light .cmd-chg.up   { color: #cc0000; }
+    body.light .cmd-chg.down { color: #0040cc; }
+
+    /* ── 지역 헤더 ── */
+    .region-hd {
+      padding: 6px 14px;
+      font-family: var(--mono); font-size: 12px; font-weight:600; letter-spacing: .1em;
+      color: var(--gold); background: rgba(240,176,64,.06);
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+    }
 
   </style>
 </head>
@@ -642,21 +685,15 @@ function toggleTheme() {
     const q = item.q;
     const price = q?.price, chg = q?.change, pct = q?.pct;
     const cc = chgClass(chg);
+    const arrow = cc === 'up' ? '▲' : cc === 'down' ? '▼' : '–';
     const priceStr = price != null ? fmt(price) : '—';
-    const chgStr   = (chg != null && pct != null)
-      ? `${sign(chg)}${fmt(chg)} (${sign(pct)}${fmt(pct, 2)}%)`
-      : '— (−%)';
-    return `
-      <div class="idx-row">
-        <div class="idx-left">
-          <div class="idx-name">${item.name}</div>
-          <div class="idx-sub">${item.sub}</div>
-        </div>
-        <div class="idx-right-group">
-          <div class="idx-price">${priceStr}</div>
-          <div class="idx-chg ${cc}">${chgStr}</div>
-        </div>
-      </div>`;
+    const chgAbs  = chg  != null ? `${Math.abs(chg).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}` : '—';
+    const pctStr  = pct  != null ? `(${sign(pct)}${fmt(pct,2)}%)` : '';
+    return `<div class="idx-card">
+      <div class="idx-card-header">${item.name}<span style="font-size:10px;color:var(--text-dim);margin-left:6px;">${item.sub}</span></div>
+      <div class="idx-card-price">${priceStr}</div>
+      <div class="idx-card-chg ${cc}">${arrow} ${chgAbs} ${pctStr}</div>
+    </div>`;
   }
 
   function cmdRowHTML(item) {
@@ -666,18 +703,15 @@ function toggleTheme() {
     const priceStr = price != null ? fmt(price) : '—';
     const chgStr   = (chg != null && pct != null)
       ? `${sign(chg)}${fmt(chg)} (${sign(pct)}${fmt(pct, 2)}%)`
-      : '— (−%)';
-    return `
-      <div class="cmd-row">
-        <div class="idx-left">
-          <div class="idx-name">${item.name}</div>
-          <div class="idx-sub">${item.unit || item.sub || ''}</div>
-        </div>
-        <div class="idx-right-group">
-          <div class="idx-price">${priceStr}</div>
-          <div class="idx-chg ${cc}">${chgStr}</div>
-        </div>
-      </div>`;
+      : '— (-%)';
+    return `<div class="cmd-row">
+      <div>
+        <div class="cmd-name">${item.name}</div>
+        <div class="cmd-sub">${item.unit || item.sub || ''}</div>
+      </div>
+      <div class="cmd-price">${priceStr}</div>
+      <div class="cmd-chg ${cc}">${chgStr}</div>
+    </div>`;
   }
 
   async function load() {
@@ -688,18 +722,16 @@ function toggleTheme() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
 
-      // 지수 (india → asia 통합)
+      // 지수 (카드 그리드)
       let html = '';
-      ['us','kr'].forEach(region => {
+      ['us','kr','asia','europe','crypto'].forEach(region => {
+        if (!REGION_LABELS[region]) return;
+        const items = data.indices[region] || [];
+        if (!items.length) return;
         html += `<div class="region-hd">${REGION_LABELS[region]}</div>`;
-        (data.indices[region] || []).forEach(item => { html += rowHTML(item); });
-      });
-      // 아시아: asia + india 합산
-      html += `<div class="region-hd">${REGION_LABELS['asia']}</div>`;
-      [...(data.indices['asia'] || []), ...(data.indices['india'] || [])].forEach(item => { html += rowHTML(item); });
-      ['europe','crypto'].forEach(region => {
-        html += `<div class="region-hd">${REGION_LABELS[region]}</div>`;
-        (data.indices[region] || []).forEach(item => { html += rowHTML(item); });
+        html += '<div class="idx-grid">';
+        items.forEach(item => { html += rowHTML(item); });
+        html += '</div>';
       });
       document.getElementById('idx-list').innerHTML = html;
 
