@@ -449,11 +449,60 @@
   <section>
     <div class="sec-label">₿ 비트코인 · BITCOIN</div>
     <div class="card">
-      <div class="tradingview-widget-container" style="height:320px">
+      <!-- 일봉 캔들차트 + MA5 + MA200 -->
+      <div class="tradingview-widget-container" style="height:440px">
         <div class="tradingview-widget-container__widget"></div>
-        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-        {"symbol":"BITSTAMP:BTCUSD","width":"100%","height":320,"locale":"kr","dateRange":"6M","colorTheme":"dark","isTransparent":true,"autosize":false,"noTimeScale":false}
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
+        {
+          "symbol": "BITSTAMP:BTCUSD",
+          "width": "100%",
+          "height": "440",
+          "locale": "kr",
+          "interval": "D",
+          "range": "2M",
+          "timezone": "Asia/Seoul",
+          "theme": "dark",
+          "style": "1",
+          "backgroundColor": "rgba(13, 17, 23, 0)",
+          "gridColor": "rgba(30, 42, 53, 0.5)",
+          "hide_top_toolbar": false,
+          "hide_legend": false,
+          "allow_symbol_change": false,
+          "save_image": false,
+          "studies": [
+            {
+              "id": "MASimple@tv-basicstudies",
+              "inputs": { "length": 5 },
+              "override": {
+                "Plot.linewidth": 1.5,
+                "Plot.color": "#00c896"
+              }
+            },
+            {
+              "id": "MASimple@tv-basicstudies",
+              "inputs": { "length": 200 },
+              "override": {
+                "Plot.linewidth": 1.5,
+                "Plot.color": "#f0b040"
+              }
+            }
+          ],
+          "isTransparent": true,
+          "support_host": "https://www.tradingview.com"
+        }
         </script>
+      </div>
+      <!-- 범례 -->
+      <div style="padding:6px 14px 10px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--border);">
+        <div style="display:flex;align-items:center;gap:5px;">
+          <div style="width:18px;height:2px;background:#00c896;border-radius:1px;"></div>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted);">MA 5</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:5px;">
+          <div style="width:18px;height:2px;background:#f0b040;border-radius:1px;"></div>
+          <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted);">MA 200</span>
+        </div>
+        <span style="font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-left:auto;">일봉 · 최근 2개월 · KST 기준</span>
       </div>
     </div>
   </section>
