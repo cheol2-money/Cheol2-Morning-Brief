@@ -1,0 +1,271 @@
+{
+  "updated": "2026-03-20T02:11:46.450577Z",
+  "indices": {
+    "us": [
+      {
+        "sym": "^GSPC",
+        "name": "S&P 500",
+        "sub": "SPX",
+        "q": {
+          "price": 6606.4902,
+          "change": -18.2098,
+          "pct": -0.2749
+        }
+      },
+      {
+        "sym": "^IXIC",
+        "name": "나스닥 종합",
+        "sub": "COMP",
+        "q": {
+          "price": 22090.6914,
+          "change": -61.7286,
+          "pct": -0.2787
+        }
+      },
+      {
+        "sym": "^NDX",
+        "name": "나스닥 100",
+        "sub": "NDX",
+        "q": {
+          "price": 24355.2754,
+          "change": -69.8186,
+          "pct": -0.2858
+        }
+      },
+      {
+        "sym": "^DJI",
+        "name": "다우존스",
+        "sub": "DJI",
+        "q": {
+          "price": 46021.4297,
+          "change": -203.7203,
+          "pct": -0.4407
+        }
+      },
+      {
+        "sym": "^VIX",
+        "name": "VIX 공포지수",
+        "sub": "VIX",
+        "q": {
+          "price": 24.06,
+          "change": -1.03,
+          "pct": -4.1052
+        }
+      },
+      {
+        "sym": "^SOX",
+        "name": "필라델피아 반도체",
+        "sub": "SOX",
+        "q": {
+          "price": 7863.3037,
+          "change": 68.1753,
+          "pct": 0.8746
+        }
+      }
+    ],
+    "kr": [
+      {
+        "sym": "^KS11",
+        "name": "코스피",
+        "sub": "KOSPI",
+        "q": {
+          "price": 5810.0498,
+          "change": 55.9497,
+          "pct": 0.9723
+        }
+      },
+      {
+        "sym": "^KQ11",
+        "name": "코스닥",
+        "sub": "KOSDAQ",
+        "q": {
+          "price": 1162.79,
+          "change": 19.52,
+          "pct": 1.7074
+        }
+      },
+      {
+        "sym": "EWY",
+        "name": "Korea ETF",
+        "sub": "EWY",
+        "q": {
+          "price": 134.82,
+          "change": 2.98,
+          "pct": 2.2603
+        }
+      }
+    ],
+    "asia": [
+      {
+        "sym": "^N225",
+        "name": "니케이 225",
+        "sub": "NKY",
+        "q": {
+          "price": 53372.5312,
+          "change": -1816.1289,
+          "pct": -3.2908
+        }
+      },
+      {
+        "sym": "^HSI",
+        "name": "항셍",
+        "sub": "HSI",
+        "q": {
+          "price": 25344.5508,
+          "change": -156.0293,
+          "pct": -0.6119
+        }
+      },
+      {
+        "sym": "000001.SS",
+        "name": "상하이 종합",
+        "sub": "SHCOMP",
+        "q": {
+          "price": 3998.1704,
+          "change": -9.1228,
+          "pct": -0.2277
+        }
+      },
+      {
+        "sym": "^TWII",
+        "name": "대만 가권",
+        "sub": "TAIEX",
+        "q": {
+          "price": 33677.2812,
+          "change": -64.8477,
+          "pct": -0.1922
+        }
+      }
+    ],
+    "europe": [
+      {
+        "sym": "^STOXX50E",
+        "name": "유로스탁스 50",
+        "sub": "SX5E",
+        "q": {
+          "price": 5613.8301,
+          "change": -127.7798,
+          "pct": -2.2255
+        }
+      },
+      {
+        "sym": "^FTSE",
+        "name": "FTSE 100",
+        "sub": "UKX",
+        "q": {
+          "price": 10063.5,
+          "change": -241.79,
+          "pct": -2.3463
+        }
+      },
+      {
+        "sym": "^GDAXI",
+        "name": "DAX",
+        "sub": "DAX",
+        "q": {
+          "price": 22839.5605,
+          "change": -662.6895,
+          "pct": -2.8197
+        }
+      },
+      {
+        "sym": "^FCHI",
+        "name": "CAC 40",
+        "sub": "CAC",
+        "q": {
+          "price": 7807.8701,
+          "change": -166.0098,
+          "pct": -2.0819
+        }
+      }
+    ]
+  },
+  "commodities": [
+    {
+      "sym": "GC=F",
+      "name": "금 (Gold)",
+      "sub": "XAU/USD",
+      "unit": "USD/oz",
+      "q": {
+        "price": 4683.1001,
+        "change": -169.6001,
+        "pct": -3.495
+      }
+    },
+    {
+      "sym": "SI=F",
+      "name": "은 (Silver)",
+      "sub": "XAG/USD",
+      "unit": "USD/oz",
+      "q": {
+        "price": 73.775,
+        "change": -2.165,
+        "pct": -2.8509
+      }
+    },
+    {
+      "sym": "CL=F",
+      "name": "WTI 원유",
+      "sub": "Crude",
+      "unit": "USD/bbl",
+      "q": {
+        "price": 93.23,
+        "change": -3.14,
+        "pct": -3.2583
+      }
+    },
+    {
+      "sym": "BZ=F",
+      "name": "브렌트유",
+      "sub": "Brent",
+      "unit": "USD/bbl",
+      "q": {
+        "price": 101.44,
+        "change": -5.04,
+        "pct": -4.7333
+      }
+    }
+  ],
+  "rates": [
+    {
+      "sym": "^IRX",
+      "name": "미국 단기 (13W)",
+      "sub": "T-Bill",
+      "q": {
+        "price": 3.612,
+        "change": 0.002,
+        "pct": 0.0554
+      }
+    },
+    {
+      "sym": "^FVX",
+      "name": "미국 5년물",
+      "sub": "US5Y",
+      "q": {
+        "price": 3.919,
+        "change": 0.057,
+        "pct": 1.4759
+      }
+    },
+    {
+      "sym": "^TNX",
+      "name": "미국 10년물",
+      "sub": "US10Y",
+      "q": {
+        "price": 4.281,
+        "change": 0.022,
+        "pct": 0.5166
+      }
+    },
+    {
+      "sym": "^TYX",
+      "name": "미국 30년물",
+      "sub": "US30Y",
+      "q": {
+        "price": 4.852,
+        "change": -0.029,
+        "pct": -0.5941
+      }
+    }
+  ]
+}
