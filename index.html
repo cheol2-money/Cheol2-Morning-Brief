@@ -185,18 +185,18 @@
       text-transform: uppercase;
     }
     .idx-row {
-      display: flex; align-items: center; justify-content: space-between;
+      display: flex; align-items: center;
       padding: 7px 14px; border-bottom: 1px solid var(--border);
-      gap: 2px;
+      gap: 10px;
       transition: background .15s;
     }
     .idx-row:hover { background: rgba(255,255,255,.03); }
     .idx-row:last-child { border-bottom: none; }
-    .idx-name { font-size: 15px; color: var(--text); font-weight: 600; white-space:nowrap; flex-shrink:0; }
-    .idx-sub  { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top:1px; }
-    .idx-right { text-align: right; flex-shrink:0; }
-    .idx-price { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); }
-    .idx-chg   { font-family: var(--mono); font-size: 12px; margin-top: 1px; }
+    .idx-left  { min-width: 140px; flex-shrink:0; }
+    .idx-name  { font-size: 15px; color: var(--text); font-weight: 600; white-space:nowrap; }
+    .idx-sub   { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top:1px; }
+    .idx-price { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); white-space:nowrap; flex-shrink:0; }
+    .idx-chg   { font-family: var(--mono); font-size: 12px; white-space:nowrap; flex-shrink:0; margin-left: auto; text-align:right; }
     /* 상승=빨강, 하락=파랑 (한국 주식창 표준) */
     .idx-chg.up   { color: #e02020; }
     .idx-chg.down { color: #2060ff; }
@@ -204,8 +204,8 @@
     body.light .idx-chg.up   { color: #cc0000; }
     body.light .idx-chg.down { color: #0040cc; }
     .cmd-row {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 9px 14px; border-bottom: 1px solid var(--border); gap:8px;
+      display: flex; align-items: center;
+      padding: 8px 14px; border-bottom: 1px solid var(--border); gap: 10px;
     }
     .cmd-row:last-child { border-bottom: none; }
 
@@ -651,14 +651,12 @@ function toggleTheme() {
       : '— (-%)';
     return `
       <div class="idx-row">
-        <div>
+        <div class="idx-left">
           <div class="idx-name">${item.name}</div>
           <div class="idx-sub">${item.sub}</div>
         </div>
-        <div class="idx-right">
-          <div class="idx-price">${priceStr}</div>
-          <div class="idx-chg ${cc}">${chgStr}</div>
-        </div>
+        <div class="idx-price">${priceStr}</div>
+        <div class="idx-chg ${cc}">${chgStr}</div>
       </div>`;
   }
 
@@ -672,14 +670,12 @@ function toggleTheme() {
       : '— (-%)';
     return `
       <div class="cmd-row">
-        <div>
+        <div class="idx-left">
           <div class="idx-name">${item.name}</div>
           <div class="idx-sub">${item.unit || item.sub || ''}</div>
         </div>
-        <div class="idx-right">
-          <div class="idx-price">${priceStr}</div>
-          <div class="idx-chg ${cc}">${chgStr}</div>
-        </div>
+        <div class="idx-price">${priceStr}</div>
+        <div class="idx-chg ${cc}">${chgStr}</div>
       </div>`;
   }
 
@@ -691,16 +687,10 @@ function toggleTheme() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
 
-      // 지수 (india를 asia에 통합)
+      // 지수
       let html = '';
-      ['us','kr'].forEach(region => {
-        html += `<div class="region-hd">${REGION_LABELS[region]}</div>`;
-        (data.indices[region] || []).forEach(item => { html += rowHTML(item); });
-      });
-      // 아시아 = asia + india 합산
-      html += `<div class="region-hd">${REGION_LABELS['asia']}</div>`;
-      [...(data.indices['asia'] || []), ...(data.indices['india'] || [])].forEach(item => { html += rowHTML(item); });
-      ['europe','crypto'].forEach(region => {
+      ['us','kr','asia','europe','crypto'].forEach(region => {
+        if (!REGION_LABELS[region]) return;
         html += `<div class="region-hd">${REGION_LABELS[region]}</div>`;
         (data.indices[region] || []).forEach(item => { html += rowHTML(item); });
       });
