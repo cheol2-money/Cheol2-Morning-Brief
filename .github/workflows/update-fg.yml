@@ -34,9 +34,10 @@ jobs:
               ("^SOX",   "필라델피아 반도체",    "SOX"),
             ],
             "kr": [
-              ("^KS11",  "코스피",    "KOSPI"),
-              ("^KQ11",  "코스닥",    "KOSDAQ"),
-              ("EWY",    "Korea ETF", "EWY"),
+              ("^KS11",  "코스피",      "KOSPI"),
+              ("^KQ11",  "코스닥",      "KOSDAQ"),
+              ("^KQ150", "코스닥 150",  "KOSDAQ150"),
+              ("EWY",    "Korea ETF",   "EWY"),
             ],
             "asia": [
               ("^N225",     "니케이 225",  "NKY"),
@@ -44,11 +45,19 @@ jobs:
               ("000001.SS", "상하이 종합", "SHCOMP"),
               ("^TWII",     "대만 가권",   "TAIEX"),
             ],
+            "india": [
+              ("^NSEI",  "니프티 50",    "NIFTY"),
+              ("^BSESN", "센섹스",       "SENSEX"),
+            ],
             "europe": [
               ("^STOXX50E", "유로스탁스 50", "SX5E"),
               ("^FTSE",     "FTSE 100",      "UKX"),
               ("^GDAXI",    "DAX",           "DAX"),
               ("^FCHI",     "CAC 40",        "CAC"),
+            ],
+            "crypto": [
+              ("BTC-USD",  "비트코인",   "BTC/USD"),
+              ("ETH-USD",  "이더리움",   "ETH/USD"),
             ],
           }
 
@@ -57,6 +66,9 @@ jobs:
             ("SI=F",  "은 (Silver)", "XAG/USD", "USD/oz"),
             ("CL=F",  "WTI 원유",    "Crude",   "USD/bbl"),
             ("BZ=F",  "브렌트유",    "Brent",   "USD/bbl"),
+            ("MCO=F", "두바이유",    "Dubai",   "USD/bbl"),
+            ("HG=F",  "구리 (Copper)", "COMEX", "USD/lb"),
+            ("NI=F",  "니켈 (Nickel)", "LME",   "USD/t"),
           ]
 
           RATES = [
@@ -67,7 +79,6 @@ jobs:
           ]
 
           def fetch(sym):
-            """가장 안정적인 방법: history 1일치 + info 조합"""
             try:
               t = yf.Ticker(sym)
               hist = t.history(period="2d")
@@ -78,7 +89,7 @@ jobs:
               prev  = float(hist['Close'].iloc[-2]) if len(hist) > 1 else price
               chg   = round(price - prev, 4)
               pct   = round(chg / prev * 100 if prev else 0, 4)
-              print(f"  OK {sym}: {price:.3f}  chg={chg:+.3f} ({pct:+.2f}%)")
+              print(f"  OK {sym}: {price:.3f}  ({pct:+.2f}%)")
               return {"price": round(price, 4), "change": chg, "pct": pct}
             except Exception as e:
               print(f"  [ERR] {sym}: {e}")
@@ -115,14 +126,10 @@ jobs:
           with open("market.json", "w", encoding="utf-8") as f:
             json.dump(result, f, ensure_ascii=False, indent=2)
 
-          # 결과 요약
-          spx = result["indices"]["us"][0]["q"]
-          kospi = result["indices"]["kr"][0]["q"]
-          gold = result["commodities"][0]["q"]
-          print(f"\n=== 결과 요약 ===")
-          print(f"S&P 500  : {spx}")
-          print(f"KOSPI    : {kospi}")
-          print(f"Gold     : {gold}")
+          print(f"\n=== 완료 ===")
+          print(f"S&P 500 : {result['indices']['us'][0]['q']}")
+          print(f"BTC     : {result['indices']['crypto'][0]['q']}")
+          print(f"NIFTY   : {result['indices']['india'][0]['q']}")
           EOF
 
       - name: Fetch CNN Fear & Greed
