@@ -28,7 +28,6 @@ jobs:
             "us": [
               ("^GSPC",  "S&P 500",          "SPX"),
               ("^IXIC",  "나스닥 종합",         "COMP"),
-              ("^NDX",   "나스닥 100",          "NDX"),
               ("^DJI",   "다우존스",            "DJI"),
               ("^VIX",   "VIX 공포지수",        "VIX"),
               ("^SOX",   "필라델피아 반도체",    "SOX"),
@@ -64,8 +63,9 @@ jobs:
             ("SI=F",  "은 (Silver)",    "XAG/USD", "USD/oz"),
             ("CL=F",  "WTI 원유",       "Crude",   "USD/bbl"),
             ("BZ=F",  "브렌트유",       "Brent",   "USD/bbl"),
-            ("BZ=F",  "두바이유 (근사)", "Dubai≈Brent", "USD/bbl"),
+            ("MCO=F", "두바이유",       "Dubai",   "USD/bbl"),
             ("HG=F",  "구리 (Copper)",  "COMEX",   "USD/lb"),
+            ("NI=F",  "니켈 (Nickel)",  "LME",     "USD/t"),
           ]
 
           RATES = [
