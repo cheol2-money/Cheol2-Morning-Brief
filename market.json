@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-20T02:15:07.819727Z",
+  "updated": "2026-03-20T02:48:11.823710Z",
   "indices": {
     "us": [
       {
@@ -69,9 +69,9 @@
         "name": "코스피",
         "sub": "KOSPI",
         "q": {
-          "price": 5796.7598,
-          "change": 0.0,
-          "pct": 0.0
+          "price": 5795.5801,
+          "change": -129.4497,
+          "pct": -2.1848
         }
       },
       {
@@ -79,10 +79,16 @@
         "name": "코스닥",
         "sub": "KOSDAQ",
         "q": {
-          "price": 1161.75,
-          "change": 0.0,
-          "pct": 0.0
+          "price": 1164.75,
+          "change": 0.37,
+          "pct": 0.0318
         }
+      },
+      {
+        "sym": "^KQ150",
+        "name": "코스닥 150",
+        "sub": "KOSDAQ150",
+        "q": null
       },
       {
         "sym": "EWY",
@@ -111,9 +117,9 @@
         "name": "항셍",
         "sub": "HSI",
         "q": {
-          "price": 25381.2598,
-          "change": 0.0,
-          "pct": 0.0
+          "price": 25353.25,
+          "change": -672.1699,
+          "pct": -2.5827
         }
       },
       {
@@ -121,9 +127,9 @@
         "name": "상하이 종합",
         "sub": "SHCOMP",
         "q": {
-          "price": 4004.1191,
-          "change": 0.0,
-          "pct": 0.0
+          "price": 3994.7075,
+          "change": -68.2764,
+          "pct": -1.6804
         }
       },
       {
@@ -131,9 +137,29 @@
         "name": "대만 가권",
         "sub": "TAIEX",
         "q": {
-          "price": 33660.3086,
-          "change": 0.0,
-          "pct": 0.0
+          "price": 33641.1094,
+          "change": -707.4688,
+          "pct": -2.0597
+        }
+      },
+      {
+        "sym": "^NSEI",
+        "name": "니프티 50",
+        "sub": "NIFTY",
+        "q": {
+          "price": 23002.1504,
+          "change": -775.6504,
+          "pct": -3.2621
+        }
+      },
+      {
+        "sym": "^BSESN",
+        "name": "센섹스",
+        "sub": "SENSEX",
+        "q": {
+          "price": 74207.2422,
+          "change": -2496.8906,
+          "pct": -3.2552
         }
       }
     ],
@@ -178,6 +204,28 @@
           "pct": -2.0328
         }
       }
+    ],
+    "crypto": [
+      {
+        "sym": "BTC-USD",
+        "name": "비트코인",
+        "sub": "BTC/USD",
+        "q": {
+          "price": 70279.1484,
+          "change": -966.4297,
+          "pct": -1.3565
+        }
+      },
+      {
+        "sym": "ETH-USD",
+        "name": "이더리움",
+        "sub": "ETH/USD",
+        "q": {
+          "price": 2143.7053,
+          "change": -59.9663,
+          "pct": -2.7212
+        }
+      }
     ]
   },
   "commodities": [
@@ -187,9 +235,9 @@
       "sub": "XAU/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 4672.8999,
-        "change": -217.0,
-        "pct": -4.4377
+        "price": 4680.6001,
+        "change": -209.2998,
+        "pct": -4.2802
       }
     },
     {
@@ -198,9 +246,9 @@
       "sub": "XAG/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 73.63,
-        "change": -3.608,
-        "pct": -4.6713
+        "price": 73.81,
+        "change": -3.428,
+        "pct": -4.4382
       }
     },
     {
@@ -209,9 +257,9 @@
       "sub": "Crude",
       "unit": "USD/bbl",
       "q": {
-        "price": 93.32,
-        "change": -3.0,
-        "pct": -3.1146
+        "price": 93.57,
+        "change": -2.75,
+        "pct": -2.8551
       }
     },
     {
@@ -220,9 +268,31 @@
       "sub": "Brent",
       "unit": "USD/bbl",
       "q": {
-        "price": 101.48,
-        "change": -5.9,
-        "pct": -5.4945
+        "price": 102.03,
+        "change": -5.35,
+        "pct": -4.9823
+      }
+    },
+    {
+      "sym": "BZ=F",
+      "name": "두바이유 (근사)",
+      "sub": "Dubai≈Brent",
+      "unit": "USD/bbl",
+      "q": {
+        "price": 102.03,
+        "change": -5.35,
+        "pct": -4.9823
+      }
+    },
+    {
+      "sym": "HG=F",
+      "name": "구리 (Copper)",
+      "sub": "COMEX",
+      "unit": "USD/lb",
+      "q": {
+        "price": 5.528,
+        "change": -0.026,
+        "pct": -0.4681
       }
     }
   ],
