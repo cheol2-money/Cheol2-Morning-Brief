@@ -134,6 +134,35 @@
       .fg-hist  { grid-template-columns:repeat(2,1fr); }
       .live-badge span { display:none; }
     }
+    /* ══ CUSTOM INDEX CARDS ══ */
+    .region-hd {
+      padding: 7px 14px;
+      font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
+      color: var(--text-muted); background: rgba(255,255,255,.02);
+      border-bottom: 1px solid var(--border);
+      text-transform: uppercase;
+    }
+    .idx-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+    .idx-row:hover { background: rgba(255,255,255,.03); }
+    .idx-row:last-child { border-bottom: none; }
+    .idx-name { font-size: 13px; color: var(--text); font-weight: 600; }
+    .idx-sub  { font-family: var(--mono); font-size: 10px; color: var(--text-muted); margin-top:2px; }
+    .idx-right { text-align: right; }
+    .idx-price { font-family: var(--mono); font-size: 14px; font-weight: 600; color: #fff; }
+    .idx-chg   { font-family: var(--mono); font-size: 11px; margin-top: 2px; }
+    .idx-chg.up   { color: var(--green); }
+    .idx-chg.down { color: var(--red); }
+    .idx-chg.flat { color: var(--text-muted); }
+    .cmd-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 14px; border-bottom: 1px solid var(--border);
+    }
+    .cmd-row:last-child { border-bottom: none; }
+
   </style>
 </head>
 <body>
@@ -190,74 +219,27 @@
 <!-- ══ MAIN ══ -->
 <div class="main">
 
-  <!-- 1. 글로벌 지수 (스크롤형) + 우측 환율/원자재 -->
+  <!-- 1. 글로벌 지수 (Yahoo Finance) + 우측 환율/원자재 -->
   <section>
     <div class="sec-label">글로벌 시장 · GLOBAL MARKETS</div>
     <div class="two-col">
 
-      <!-- 지수 — 지역별 섹션 세로 나열 -->
+      <!-- 지수 — Yahoo Finance 커스텀 카드 -->
       <div class="card" style="overflow:hidden;">
-        <div class="card-hd"><span>지수 · INDICES</span><span style="color:var(--text-dim);font-size:9px">TradingView</span></div>
-
-        <!-- 🇺🇸 미국 -->
-        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-bottom:1px solid var(--border);">🇺🇸 UNITED STATES</div>
-        <div class="tradingview-widget-container" style="height:280px;">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"280","tabs":[{"title":"미국","symbols":[
-            {"s":"FOREXCOM:SPXUSD","d":"S&P 500"},
-            {"s":"FOREXCOM:NSXUSD","d":"나스닥 100"},
-            {"s":"FOREXCOM:DJI","d":"다우존스"},
-            {"s":"CBOE:VIX","d":"VIX 공포지수"},
-            {"s":"AMEX:SOX","d":"필라델피아 반도체"}
-          ]}]}
-          </script>
+        <div class="card-hd">
+          <span>지수 · INDICES</span>
+          <span style="color:var(--text-dim);font-size:9px;display:flex;align-items:center;gap:5px;">
+            <span id="idx-status-dot" style="width:5px;height:5px;border-radius:50%;background:var(--text-dim);display:inline-block;"></span>
+            <span id="idx-status">로딩 중...</span>
+          </span>
         </div>
-
-        <!-- 🇰🇷 한국 -->
-        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">🇰🇷 SOUTH KOREA</div>
-        <div class="tradingview-widget-container" style="height:200px;">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"200","tabs":[{"title":"한국","symbols":[
-            {"s":"KRX:KOSPI","d":"코스피"},
-            {"s":"KRX:KOSDAQ","d":"코스닥"},
-            {"s":"KRX:KOSPI200","d":"코스피 200"},
-            {"s":"AMEX:EWY","d":"Korea ETF (EWY)"}
-          ]}]}
-          </script>
-        </div>
-
-        <!-- 🌏 아시아 -->
-        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">🌏 ASIA</div>
-        <div class="tradingview-widget-container" style="height:240px;">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"240","tabs":[{"title":"아시아","symbols":[
-            {"s":"INDEX:NKY","d":"니케이 225"},
-            {"s":"FOREXCOM:HK50","d":"항셍"},
-            {"s":"FOREXCOM:CN50","d":"중국 A50"},
-            {"s":"FOREXCOM:TWIX","d":"대만 가권"}
-          ]}]}
-          </script>
-        </div>
-
-        <!-- 🌍 유럽 -->
-        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">🌍 EUROPE</div>
-        <div class="tradingview-widget-container" style="height:240px;">
-          <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"240","tabs":[{"title":"유럽","symbols":[
-            {"s":"FOREXCOM:EU50","d":"유로스탁스 50"},
-            {"s":"FOREXCOM:UK100","d":"FTSE 100"},
-            {"s":"FOREXCOM:GER40","d":"DAX"},
-            {"s":"FOREXCOM:FRA40","d":"CAC 40"}
-          ]}]}
-          </script>
+        <div id="idx-list" style="overflow-y:auto; max-height:960px;">
+          <!-- JS로 채워짐 -->
+          <div style="padding:40px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--text-dim);">데이터 로딩 중...</div>
         </div>
       </div>
 
-      <!-- 우측: 환율 + 원자재/금리 -->
+      <!-- 우측: 환율 + 원자재 + 금리 (커스텀) -->
       <div class="r-stack">
         <div class="card">
           <div class="card-hd">환율 · FOREX</div>
@@ -268,33 +250,17 @@
             </script>
           </div>
         </div>
+
+        <!-- 원자재 커스텀 -->
         <div class="card">
-          <div class="card-hd">원자재 · COMMODITIES</div>
-          <div class="tradingview-widget-container" style="height:200px">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-            {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":false,"width":"100%","height":"200","tabs":[{"title":"원자재","symbols":[
-              {"s":"FOREXCOM:XAUUSD","d":"금 (Gold)"},
-              {"s":"FOREXCOM:XAGUSD","d":"은 (Silver)"},
-              {"s":"FOREXCOM:UKOUSD","d":"브렌트유"},
-              {"s":"FOREXCOM:USOUSD","d":"WTI 원유"}
-            ]}]}
-            </script>
-          </div>
+          <div class="card-hd"><span>원자재 · COMMODITIES</span></div>
+          <div id="cmd-list"></div>
         </div>
+
+        <!-- 금리 커스텀 -->
         <div class="card">
-          <div class="card-hd">금리 · INTEREST RATES</div>
-          <div class="tradingview-widget-container" style="height:240px">
-            <div class="tradingview-widget-container__widget"></div>
-            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-            {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":false,"width":"100%","height":"240","tabs":[{"title":"금리","symbols":[
-              {"s":"FOREXCOM:US2YY","d":"미국 2년물"},
-              {"s":"FOREXCOM:US10YY","d":"미국 10년물"},
-              {"s":"FOREXCOM:KR10YY","d":"한국 10년물"},
-              {"s":"FOREXCOM:JP10YY","d":"일본 10년물"}
-            ]}]}
-            </script>
-          </div>
+          <div class="card-hd"><span>금리 · INTEREST RATES</span></div>
+          <div id="rate-list"></div>
         </div>
       </div>
 
@@ -518,6 +484,170 @@
   load();
   // 30분마다 재시도 (Actions 주기와 맞춤)
   setInterval(load, 30*60*1000);
+})();
+
+/* ── 4. Yahoo Finance 지수/원자재/금리 ── */
+(function() {
+  const PROXY = 'https://api.allorigins.win/raw?url=';
+
+  // 지역별 지수 정의
+  const REGIONS = [
+    { label: '🇺🇸 미국 · UNITED STATES', items: [
+      { sym: '%5EGSPC',  name: 'S&P 500',        sub: 'SPX' },
+      { sym: '%5EIXIC',  name: '나스닥 종합',       sub: 'COMP' },
+      { sym: '%5ENDX',   name: '나스닥 100',        sub: 'NDX' },
+      { sym: '%5EDJI',   name: '다우존스',           sub: 'DJI' },
+      { sym: '%5EVIX',   name: 'VIX 공포지수',      sub: 'VIX' },
+      { sym: '%5ESOX',   name: '필라델피아 반도체',   sub: 'SOX' },
+    ]},
+    { label: '🇰🇷 한국 · SOUTH KOREA', items: [
+      { sym: '%5EKS11',  name: '코스피',     sub: 'KOSPI' },
+      { sym: '%5EKQ11',  name: '코스닥',     sub: 'KOSDAQ' },
+      { sym: 'EWY',      name: 'Korea ETF',  sub: 'EWY' },
+    ]},
+    { label: '🌏 아시아 · ASIA', items: [
+      { sym: '%5EN225',  name: '니케이 225',  sub: 'NKY' },
+      { sym: '%5EHSI',   name: '항셍',        sub: 'HSI' },
+      { sym: '000001.SS',name: '상하이 종합', sub: 'SHCOMP' },
+      { sym: '%5ETWII',  name: '대만 가권',   sub: 'TAIEX' },
+    ]},
+    { label: '🌍 유럽 · EUROPE', items: [
+      { sym: '%5ESTOXX50E', name: '유로스탁스 50', sub: 'SX5E' },
+      { sym: '%5EFTSE',     name: 'FTSE 100',       sub: 'UKX' },
+      { sym: '%5EGDAXI',    name: 'DAX',             sub: 'DAX' },
+      { sym: '%5EFCHI',     name: 'CAC 40',          sub: 'CAC' },
+    ]},
+  ];
+
+  const COMMODITIES = [
+    { sym: 'GC%3DF',  name: '금 (Gold)',   sub: 'XAU/USD', unit: 'USD/oz' },
+    { sym: 'SI%3DF',  name: '은 (Silver)', sub: 'XAG/USD', unit: 'USD/oz' },
+    { sym: 'CL%3DF',  name: 'WTI 원유',    sub: 'Crude',   unit: 'USD/bbl' },
+    { sym: 'BZ%3DF',  name: '브렌트유',     sub: 'Brent',   unit: 'USD/bbl' },
+  ];
+
+  const RATES = [
+    { sym: '%5EIRX',  name: '미국 단기 (13W)', sub: 'T-Bill' },
+    { sym: '%5EFVX',  name: '미국 5년물',       sub: 'US5Y' },
+    { sym: '%5ETNX',  name: '미국 10년물',      sub: 'US10Y' },
+    { sym: '%5ETYX',  name: '미국 30년물',      sub: 'US30Y' },
+  ];
+
+  // 숫자 포맷
+  function fmt(n, d=2) {
+    if (n==null || isNaN(n)) return '—';
+    return n.toLocaleString('en-US', {minimumFractionDigits:d, maximumFractionDigits:d});
+  }
+
+  // 변화율 클래스
+  function chgClass(v) { return v > 0 ? 'up' : v < 0 ? 'down' : 'flat'; }
+  function chgSign(v)  { return v > 0 ? '+' : ''; }
+
+  // Yahoo Finance fetch
+  async function yf(symbols) {
+    const raw = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${symbols.join(',')}&fields=regularMarketPrice,regularMarketChange,regularMarketChangePercent,regularMarketPreviousClose,shortName`;
+    const url = PROXY + encodeURIComponent(raw);
+    const res = await fetch(url, {cache:'no-store'});
+    if (!res.ok) throw new Error('YF HTTP ' + res.status);
+    const j = await res.json();
+    const results = j?.quoteResponse?.result || [];
+    const map = {};
+    results.forEach(r => { map[r.symbol] = r; });
+    return map;
+  }
+
+  // 지수 행 HTML
+  function rowHTML(r, item) {
+    const price = r?.regularMarketPrice;
+    const chg   = r?.regularMarketChange;
+    const pct   = r?.regularMarketChangePercent;
+    const cc    = chgClass(chg);
+    return `
+      <div class="idx-row">
+        <div>
+          <div class="idx-name">${item.name}</div>
+          <div class="idx-sub">${item.sub}</div>
+        </div>
+        <div class="idx-right">
+          <div class="idx-price">${fmt(price, price > 100 ? 2 : 3)}</div>
+          <div class="idx-chg ${cc}">${chgSign(chg)}${fmt(chg, price > 100 ? 2 : 3)} (${chgSign(pct)}${fmt(pct)}%)</div>
+        </div>
+      </div>`;
+  }
+
+  // 원자재/금리 행 HTML
+  function cmdRowHTML(r, item) {
+    const price = r?.regularMarketPrice;
+    const chg   = r?.regularMarketChange;
+    const pct   = r?.regularMarketChangePercent;
+    const cc    = chgClass(chg);
+    return `
+      <div class="cmd-row">
+        <div>
+          <div class="idx-name">${item.name}</div>
+          <div class="idx-sub">${item.unit||item.sub||''}</div>
+        </div>
+        <div class="idx-right">
+          <div class="idx-price">${fmt(price, 3)}</div>
+          <div class="idx-chg ${cc}">${chgSign(chg)}${fmt(chg,3)} (${chgSign(pct)}${fmt(pct)}%)</div>
+        </div>
+      </div>`;
+  }
+
+  async function loadAll() {
+    // 상태 표시
+    const dot = document.getElementById('idx-status-dot');
+    const st  = document.getElementById('idx-status');
+    try {
+      // 지수
+      const allIdxSyms = REGIONS.flatMap(r => r.items.map(i => decodeURIComponent(i.sym)));
+      const idxMap = await yf(allIdxSyms);
+
+      let html = '';
+      REGIONS.forEach(region => {
+        html += `<div class="region-hd">${region.label}</div>`;
+        region.items.forEach(item => {
+          const sym = decodeURIComponent(item.sym);
+          html += rowHTML(idxMap[sym], item);
+        });
+      });
+      document.getElementById('idx-list').innerHTML = html;
+
+      // 원자재
+      const cmdSyms = COMMODITIES.map(c => decodeURIComponent(c.sym));
+      const cmdMap  = await yf(cmdSyms);
+      let cmdHtml = '';
+      COMMODITIES.forEach(item => {
+        cmdHtml += cmdRowHTML(cmdMap[decodeURIComponent(item.sym)], item);
+      });
+      document.getElementById('cmd-list').innerHTML = cmdHtml;
+
+      // 금리
+      const rateSyms = RATES.map(r => decodeURIComponent(r.sym));
+      const rateMap  = await yf(rateSyms);
+      let rateHtml = '';
+      RATES.forEach(item => {
+        rateHtml += cmdRowHTML(rateMap[decodeURIComponent(item.sym)], item);
+      });
+      document.getElementById('rate-list').innerHTML = rateHtml;
+
+      // 성공 상태
+      const now = new Date(Date.now() + 9*3600000);
+      const p = n => String(n).padStart(2,'0');
+      st.textContent  = `${p(now.getUTCHours())}:${p(now.getUTCMinutes())} KST 기준`;
+      dot.style.background = 'var(--green)';
+
+    } catch(e) {
+      console.warn('[YF] 오류:', e.message);
+      st.textContent  = '데이터 오류 — 재시도 중';
+      dot.style.background = 'var(--red)';
+      document.getElementById('idx-list').innerHTML =
+        `<div style="padding:20px;text-align:center;font-family:var(--mono);font-size:11px;color:var(--red);">데이터 로드 실패<br><span style="color:var(--text-dim)">${e.message}</span></div>`;
+    }
+  }
+
+  loadAll();
+  setInterval(loadAll, 5 * 60 * 1000); // 5분마다 갱신
 })();
 </script>
 
