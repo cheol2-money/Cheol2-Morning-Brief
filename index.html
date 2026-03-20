@@ -190,39 +190,114 @@
 <!-- ══ MAIN ══ -->
 <div class="main">
 
-  <!-- 1. 글로벌 지수 -->
+  <!-- 1. 글로벌 지수 (스크롤형) + 우측 환율/원자재 -->
   <section>
     <div class="sec-label">글로벌 시장 · GLOBAL MARKETS</div>
     <div class="two-col">
-      <div class="card">
+
+      <!-- 지수 — 지역별 섹션 세로 나열 -->
+      <div class="card" style="overflow:hidden;">
         <div class="card-hd"><span>지수 · INDICES</span><span style="color:var(--text-dim);font-size:9px">TradingView</span></div>
-        <div class="tradingview-widget-container" style="height:600px">
+
+        <!-- 🇺🇸 미국 -->
+        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-bottom:1px solid var(--border);">🇺🇸 UNITED STATES</div>
+        <div class="tradingview-widget-container" style="height:280px;">
           <div class="tradingview-widget-container__widget"></div>
           <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"600","tabs":[{"title":"미국","symbols":[{"s":"SP:SPX","d":"S&P 500"},{"s":"NASDAQ:NDX","d":"나스닥 100"},{"s":"DJ:DJI","d":"다우존스"},{"s":"CBOE:VIX","d":"VIX"},{"s":"NASDAQ:SOX","d":"필라델피아 반도체"}]},{"title":"한국","symbols":[{"s":"INDEX:KOSPI","d":"코스피"},{"s":"INDEX:KOSDAQ","d":"코스닥"},{"s":"AMEX:EWY","d":"Korea ETF"}]},{"title":"아시아","symbols":[{"s":"INDEX:NKY","d":"니케이 225"},{"s":"INDEX:SHCOMP","d":"상하이 종합"},{"s":"INDEX:HSI","d":"항셍"},{"s":"INDEX:TWSE","d":"대만 가권"}]},{"title":"유럽","symbols":[{"s":"INDEX:SX5E","d":"유로스탁스 50"},{"s":"INDEX:UKX","d":"FTSE 100"},{"s":"INDEX:DAX","d":"DAX"},{"s":"INDEX:CAC40","d":"CAC 40"}]}]}
+          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"280","tabs":[{"title":"미국","symbols":[
+            {"s":"FOREXCOM:SPXUSD","d":"S&P 500"},
+            {"s":"FOREXCOM:NSXUSD","d":"나스닥 100"},
+            {"s":"FOREXCOM:DJI","d":"다우존스"},
+            {"s":"CBOE:VIX","d":"VIX 공포지수"},
+            {"s":"AMEX:SOX","d":"필라델피아 반도체"}
+          ]}]}
+          </script>
+        </div>
+
+        <!-- 🇰🇷 한국 -->
+        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">🇰🇷 SOUTH KOREA</div>
+        <div class="tradingview-widget-container" style="height:200px;">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"200","tabs":[{"title":"한국","symbols":[
+            {"s":"KRX:KOSPI","d":"코스피"},
+            {"s":"KRX:KOSDAQ","d":"코스닥"},
+            {"s":"KRX:KOSPI200","d":"코스피 200"},
+            {"s":"AMEX:EWY","d":"Korea ETF (EWY)"}
+          ]}]}
+          </script>
+        </div>
+
+        <!-- 🌏 아시아 -->
+        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">🌏 ASIA</div>
+        <div class="tradingview-widget-container" style="height:240px;">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"240","tabs":[{"title":"아시아","symbols":[
+            {"s":"INDEX:NKY","d":"니케이 225"},
+            {"s":"FOREXCOM:HK50","d":"항셍"},
+            {"s":"FOREXCOM:CN50","d":"중국 A50"},
+            {"s":"FOREXCOM:TWIX","d":"대만 가권"}
+          ]}]}
+          </script>
+        </div>
+
+        <!-- 🌍 유럽 -->
+        <div style="padding:6px 14px 2px; font-family:var(--mono); font-size:9px; color:var(--text-muted); letter-spacing:.1em; border-top:1px solid var(--border); border-bottom:1px solid var(--border);">🌍 EUROPE</div>
+        <div class="tradingview-widget-container" style="height:240px;">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"240","tabs":[{"title":"유럽","symbols":[
+            {"s":"FOREXCOM:EU50","d":"유로스탁스 50"},
+            {"s":"FOREXCOM:UK100","d":"FTSE 100"},
+            {"s":"FOREXCOM:GER40","d":"DAX"},
+            {"s":"FOREXCOM:FRA40","d":"CAC 40"}
+          ]}]}
           </script>
         </div>
       </div>
+
+      <!-- 우측: 환율 + 원자재/금리 -->
       <div class="r-stack">
         <div class="card">
           <div class="card-hd">환율 · FOREX</div>
-          <div class="tradingview-widget-container" style="height:300px">
+          <div class="tradingview-widget-container" style="height:320px">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
-            {"width":"100%","height":"300","currencies":["KRW","USD","JPY","EUR","CNY","BRL"],"isTransparent":true,"colorTheme":"dark","locale":"kr"}
+            {"width":"100%","height":"320","currencies":["KRW","USD","JPY","EUR","CNY","BRL"],"isTransparent":true,"colorTheme":"dark","locale":"kr"}
             </script>
           </div>
         </div>
         <div class="card">
-          <div class="card-hd">원자재 · 금리</div>
-          <div class="tradingview-widget-container" style="height:300px">
+          <div class="card-hd">원자재 · COMMODITIES</div>
+          <div class="tradingview-widget-container" style="height:200px">
             <div class="tradingview-widget-container__widget"></div>
             <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
-            {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":false,"width":"100%","height":"300","tabs":[{"title":"원자재","symbols":[{"s":"TVC:USOIL","d":"WTI 원유"},{"s":"TVC:GOLD","d":"금"},{"s":"TVC:SILVER","d":"은"}]},{"title":"금리","symbols":[{"s":"UST:US2Y","d":"미국 2년물"},{"s":"UST:US10Y","d":"미국 10년물"},{"s":"KGB:KR10Y","d":"한국 10년물"},{"s":"KGB:KR03Y","d":"한국 3년물"}]}]}
+            {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":false,"width":"100%","height":"200","tabs":[{"title":"원자재","symbols":[
+              {"s":"FOREXCOM:XAUUSD","d":"금 (Gold)"},
+              {"s":"FOREXCOM:XAGUSD","d":"은 (Silver)"},
+              {"s":"FOREXCOM:UKOUSD","d":"브렌트유"},
+              {"s":"FOREXCOM:USOUSD","d":"WTI 원유"}
+            ]}]}
+            </script>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd">금리 · INTEREST RATES</div>
+          <div class="tradingview-widget-container" style="height:240px">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+            {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":false,"width":"100%","height":"240","tabs":[{"title":"금리","symbols":[
+              {"s":"FOREXCOM:US2YY","d":"미국 2년물"},
+              {"s":"FOREXCOM:US10YY","d":"미국 10년물"},
+              {"s":"FOREXCOM:KR10YY","d":"한국 10년물"},
+              {"s":"FOREXCOM:JP10YY","d":"일본 10년물"}
+            ]}]}
             </script>
           </div>
         </div>
       </div>
+
     </div>
   </section>
 
