@@ -2,7 +2,7 @@ name: Update Market Data
 
 on:
   schedule:
-    - cron: '0,30 * * * *'   # 30분마다
+    - cron: '0,30 * * * *'
   workflow_dispatch:
 
 jobs:
@@ -15,24 +15,23 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Install yfinance
-        run: pip install yfinance requests --break-system-packages -q
+      - name: Install dependencies
+        run: pip install yfinance --break-system-packages -q
 
-      - name: Fetch all market data
+      - name: Fetch market data
         run: |
           python3 << 'EOF'
-          import json, time, datetime
+          import json, datetime
           import yfinance as yf
 
-          # ── 지수 심볼 ──
-          INDEX_SYMBOLS = {
+          SYMBOLS = {
             "us": [
-              ("^GSPC",  "S&P 500",           "SPX"),
-              ("^IXIC",  "나스닥 종합",          "COMP"),
-              ("^NDX",   "나스닥 100",           "NDX"),
-              ("^DJI",   "다우존스",             "DJI"),
-              ("^VIX",   "VIX 공포지수",         "VIX"),
-              ("^SOX",   "필라델피아 반도체",      "SOX"),
+              ("^GSPC",  "S&P 500",          "SPX"),
+              ("^IXIC",  "나스닥 종합",         "COMP"),
+              ("^NDX",   "나스닥 100",          "NDX"),
+              ("^DJI",   "다우존스",            "DJI"),
+              ("^VIX",   "VIX 공포지수",        "VIX"),
+              ("^SOX",   "필라델피아 반도체",    "SOX"),
             ],
             "kr": [
               ("^KS11",  "코스피",    "KOSPI"),
@@ -40,10 +39,10 @@ jobs:
               ("EWY",    "Korea ETF", "EWY"),
             ],
             "asia": [
-              ("^N225",      "니케이 225",  "NKY"),
-              ("^HSI",       "항셍",        "HSI"),
-              ("000001.SS",  "상하이 종합", "SHCOMP"),
-              ("^TWII",      "대만 가권",   "TAIEX"),
+              ("^N225",     "니케이 225",  "NKY"),
+              ("^HSI",      "항셍",        "HSI"),
+              ("000001.SS", "상하이 종합", "SHCOMP"),
+              ("^TWII",     "대만 가권",   "TAIEX"),
             ],
             "europe": [
               ("^STOXX50E", "유로스탁스 50", "SX5E"),
@@ -53,86 +52,95 @@ jobs:
             ],
           }
 
-          COMMODITY_SYMBOLS = [
+          COMMODITIES = [
             ("GC=F",  "금 (Gold)",   "XAU/USD", "USD/oz"),
             ("SI=F",  "은 (Silver)", "XAG/USD", "USD/oz"),
             ("CL=F",  "WTI 원유",    "Crude",   "USD/bbl"),
             ("BZ=F",  "브렌트유",    "Brent",   "USD/bbl"),
           ]
 
-          RATE_SYMBOLS = [
+          RATES = [
             ("^IRX",  "미국 단기 (13W)", "T-Bill"),
             ("^FVX",  "미국 5년물",      "US5Y"),
             ("^TNX",  "미국 10년물",     "US10Y"),
             ("^TYX",  "미국 30년물",     "US30Y"),
           ]
 
-          def fetch_quote(sym):
+          def fetch(sym):
+            """가장 안정적인 방법: history 1일치 + info 조합"""
             try:
               t = yf.Ticker(sym)
-              info = t.fast_info
-              price = getattr(info, 'last_price', None)
-              prev  = getattr(info, 'previous_close', None)
-              if price is None or prev is None:
+              hist = t.history(period="2d")
+              if hist.empty:
+                print(f"  [WARN] {sym}: empty history")
                 return None
-              chg = price - prev
-              pct = chg / prev * 100 if prev else 0
-              return {"price": round(price, 4), "change": round(chg, 4), "pct": round(pct, 4)}
+              price = float(hist['Close'].iloc[-1])
+              prev  = float(hist['Close'].iloc[-2]) if len(hist) > 1 else price
+              chg   = round(price - prev, 4)
+              pct   = round(chg / prev * 100 if prev else 0, 4)
+              print(f"  OK {sym}: {price:.3f}  chg={chg:+.3f} ({pct:+.2f}%)")
+              return {"price": round(price, 4), "change": chg, "pct": pct}
             except Exception as e:
-              print(f"  [WARN] {sym}: {e}")
+              print(f"  [ERR] {sym}: {e}")
               return None
 
-          result = {"updated": datetime.datetime.utcnow().isoformat() + "Z", "indices": {}, "commodities": [], "rates": []}
+          result = {
+            "updated": datetime.datetime.utcnow().isoformat() + "Z",
+            "indices": {}, "commodities": [], "rates": []
+          }
 
-          # 지수
-          for region, items in INDEX_SYMBOLS.items():
+          for region, items in SYMBOLS.items():
             result["indices"][region] = []
             for sym, name, sub in items:
-              print(f"Fetching {sym} ({name})...")
-              q = fetch_quote(sym)
-              result["indices"][region].append({"sym": sym, "name": name, "sub": sub, "q": q})
-              time.sleep(0.3)
+              print(f"Fetching {sym}...")
+              q = fetch(sym)
+              result["indices"][region].append(
+                {"sym": sym, "name": name, "sub": sub, "q": q}
+              )
 
-          # 원자재
-          for sym, name, sub, unit in COMMODITY_SYMBOLS:
-            print(f"Fetching {sym} ({name})...")
-            q = fetch_quote(sym)
-            result["commodities"].append({"sym": sym, "name": name, "sub": sub, "unit": unit, "q": q})
-            time.sleep(0.3)
+          for sym, name, sub, unit in COMMODITIES:
+            print(f"Fetching {sym}...")
+            q = fetch(sym)
+            result["commodities"].append(
+              {"sym": sym, "name": name, "sub": sub, "unit": unit, "q": q}
+            )
 
-          # 금리
-          for sym, name, sub in RATE_SYMBOLS:
-            print(f"Fetching {sym} ({name})...")
-            q = fetch_quote(sym)
-            result["rates"].append({"sym": sym, "name": name, "sub": sub, "q": q})
-            time.sleep(0.3)
+          for sym, name, sub in RATES:
+            print(f"Fetching {sym}...")
+            q = fetch(sym)
+            result["rates"].append(
+              {"sym": sym, "name": name, "sub": sub, "q": q}
+            )
 
-          with open("market.json", "w") as f:
+          with open("market.json", "w", encoding="utf-8") as f:
             json.dump(result, f, ensure_ascii=False, indent=2)
 
-          print("\n=== market.json 저장 완료 ===")
-          print(json.dumps(result["indices"]["us"][0], ensure_ascii=False))
+          # 결과 요약
+          spx = result["indices"]["us"][0]["q"]
+          kospi = result["indices"]["kr"][0]["q"]
+          gold = result["commodities"][0]["q"]
+          print(f"\n=== 결과 요약 ===")
+          print(f"S&P 500  : {spx}")
+          print(f"KOSPI    : {kospi}")
+          print(f"Gold     : {gold}")
           EOF
 
-      - name: Fetch CNN Fear & Greed data
+      - name: Fetch CNN Fear & Greed
         run: |
           curl -s \
             -H "Accept: application/json" \
-            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36" \
             -H "Referer: https://www.cnn.com/markets/fear-and-greed" \
-            -H "Origin: https://www.cnn.com" \
             -L \
             "https://production.dataviz.cnn.io/index/fearandgreed/graphdata" \
             -o fg.json
-
           python3 -c "
-          import json, sys
+          import json,sys
           try:
-              d = json.load(open('fg.json'))
-              print('F&G Score:', d['fear_and_greed']['score'])
+            d=json.load(open('fg.json'))
+            print('F&G:', d['fear_and_greed']['score'])
           except Exception as e:
-              print('ERROR:', e)
-              sys.exit(1)
+            print('F&G ERROR:', e); sys.exit(1)
           "
 
       - name: Commit and push
@@ -140,5 +148,5 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add market.json fg.json
-          git diff --cached --quiet || git commit -m "chore: update market data"
+          git diff --cached --quiet || git commit -m "chore: update market data $(date -u +%H:%M)"
           git push
