@@ -184,30 +184,27 @@
       border-bottom: 1px solid var(--border);
       text-transform: uppercase;
     }
-    .idx-row {
-      display: flex; align-items: center;
-      padding: 7px 14px; border-bottom: 1px solid var(--border);
-      gap: 10px;
+    /* 지수/원자재 행: grid 3컬럼 고정 - 이름 | 가격 | 등락 */
+    .idx-row, .cmd-row {
+      display: grid;
+      grid-template-columns: 1fr 160px 200px;
+      align-items: center;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--border);
       transition: background .15s;
     }
-    .idx-row:hover { background: rgba(255,255,255,.03); }
-    .idx-row:last-child { border-bottom: none; }
-    .idx-left  { min-width: 140px; flex-shrink:0; }
-    .idx-name  { font-size: 15px; color: var(--text); font-weight: 600; white-space:nowrap; }
+    .idx-row:hover, .cmd-row:hover { background: rgba(255,255,255,.03); }
+    .idx-row:last-child, .cmd-row:last-child { border-bottom: none; }
+    .idx-left  { min-width: 0; }
+    .idx-name  { font-size: 15px; color: var(--text); font-weight: 600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .idx-sub   { font-family: var(--mono); font-size: 11px; color: var(--text-muted); margin-top:1px; }
-    .idx-price { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); white-space:nowrap; flex-shrink:0; }
-    .idx-chg   { font-family: var(--mono); font-size: 12px; white-space:nowrap; flex-shrink:0; margin-left: auto; text-align:right; }
-    /* 상승=빨강, 하락=파랑 (한국 주식창 표준) */
+    .idx-price { font-family: var(--mono); font-size: 15px; font-weight: 600; color: var(--text); white-space:nowrap; text-align:right; padding-right:16px; }
+    .idx-chg   { font-family: var(--mono); font-size: 12px; white-space:nowrap; text-align:right; }
     .idx-chg.up   { color: #e02020; }
     .idx-chg.down { color: #2060ff; }
     .idx-chg.flat { color: var(--text-muted); }
     body.light .idx-chg.up   { color: #cc0000; }
     body.light .idx-chg.down { color: #0040cc; }
-    .cmd-row {
-      display: flex; align-items: center;
-      padding: 8px 14px; border-bottom: 1px solid var(--border); gap: 10px;
-    }
-    .cmd-row:last-child { border-bottom: none; }
 
   </style>
 </head>
@@ -648,15 +645,17 @@ function toggleTheme() {
     const priceStr = price != null ? fmt(price) : '—';
     const chgStr   = (chg != null && pct != null)
       ? `${sign(chg)}${fmt(chg)} (${sign(pct)}${fmt(pct, 2)}%)`
-      : '— (-%)';
+      : '— (−%)';
     return `
       <div class="idx-row">
         <div class="idx-left">
           <div class="idx-name">${item.name}</div>
           <div class="idx-sub">${item.sub}</div>
         </div>
-        <div class="idx-price">${priceStr}</div>
-        <div class="idx-chg ${cc}">${chgStr}</div>
+        <div class="idx-right-group">
+          <div class="idx-price">${priceStr}</div>
+          <div class="idx-chg ${cc}">${chgStr}</div>
+        </div>
       </div>`;
   }
 
@@ -667,15 +666,17 @@ function toggleTheme() {
     const priceStr = price != null ? fmt(price) : '—';
     const chgStr   = (chg != null && pct != null)
       ? `${sign(chg)}${fmt(chg)} (${sign(pct)}${fmt(pct, 2)}%)`
-      : '— (-%)';
+      : '— (−%)';
     return `
       <div class="cmd-row">
         <div class="idx-left">
           <div class="idx-name">${item.name}</div>
           <div class="idx-sub">${item.unit || item.sub || ''}</div>
         </div>
-        <div class="idx-price">${priceStr}</div>
-        <div class="idx-chg ${cc}">${chgStr}</div>
+        <div class="idx-right-group">
+          <div class="idx-price">${priceStr}</div>
+          <div class="idx-chg ${cc}">${chgStr}</div>
+        </div>
       </div>`;
   }
 
@@ -687,10 +688,16 @@ function toggleTheme() {
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
 
-      // 지수
+      // 지수 (india → asia 통합)
       let html = '';
-      ['us','kr','asia','europe','crypto'].forEach(region => {
-        if (!REGION_LABELS[region]) return;
+      ['us','kr'].forEach(region => {
+        html += `<div class="region-hd">${REGION_LABELS[region]}</div>`;
+        (data.indices[region] || []).forEach(item => { html += rowHTML(item); });
+      });
+      // 아시아: asia + india 합산
+      html += `<div class="region-hd">${REGION_LABELS['asia']}</div>`;
+      [...(data.indices['asia'] || []), ...(data.indices['india'] || [])].forEach(item => { html += rowHTML(item); });
+      ['europe','crypto'].forEach(region => {
         html += `<div class="region-hd">${REGION_LABELS[region]}</div>`;
         (data.indices[region] || []).forEach(item => { html += rowHTML(item); });
       });
