@@ -525,52 +525,115 @@
     </div>
   </section>
 
-  <!-- ▶ NEW: 한국 증시 섹터 히트맵 -->
+  <!-- 한국 증시 KOSPI / KOSDAQ 차트 -->
   <section>
-    <div class="sec-label">🇰🇷 한국 증시 히트맵 · KOSPI HEATMAP</div>
+    <div class="sec-label">🇰🇷 한국 증시 · KOSPI &amp; KOSDAQ</div>
     <div class="two-col">
+
+      <!-- KOSPI -->
       <div class="card">
-        <div class="card-hd">KOSPI 섹터별</div>
-        <div class="tradingview-widget-container" style="height:480px">
+        <div class="card-hd">KOSPI · 코스피</div>
+        <div class="tradingview-widget-container" style="height:340px">
           <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
           {
-            "exchanges": ["KRX"],
-            "dataSource": "KOSPI",
-            "grouping": "sector",
-            "blockSize": "market_cap_basic",
-            "blockColor": "change",
-            "locale": "kr",
-            "colorTheme": "dark",
-            "hasTopBar": true,
-            "isZoomEnabled": true,
-            "hasSymbolTooltip": true,
-            "isMonoSize": false,
+            "symbol": "KRX:KOSPI",
             "width": "100%",
-            "height": "480"
+            "height": "340",
+            "locale": "kr",
+            "interval": "D",
+            "range": "3M",
+            "timezone": "Asia/Seoul",
+            "theme": "dark",
+            "style": "1",
+            "backgroundColor": "rgba(13, 17, 23, 0)",
+            "gridColor": "rgba(30, 42, 53, 0.5)",
+            "hide_top_toolbar": false,
+            "hide_legend": false,
+            "allow_symbol_change": false,
+            "save_image": false,
+            "studies": [
+              {
+                "id": "MASimple@tv-basicstudies",
+                "inputs": { "length": 20 },
+                "override": { "Plot.linewidth": 1.5, "Plot.color": "#00c896" }
+              },
+              {
+                "id": "MASimple@tv-basicstudies",
+                "inputs": { "length": 120 },
+                "override": { "Plot.linewidth": 1.5, "Plot.color": "#f0b040" }
+              }
+            ],
+            "isTransparent": true,
+            "support_host": "https://www.tradingview.com"
           }
           </script>
         </div>
+        <div style="padding:6px 14px 10px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--border);">
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:18px;height:2px;background:#00c896;border-radius:1px;"></div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted);">MA 20</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:18px;height:2px;background:#f0b040;border-radius:1px;"></div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted);">MA 120</span>
+          </div>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-left:auto;">일봉 · 최근 3개월 · KST</span>
+        </div>
       </div>
+
+      <!-- KOSDAQ -->
       <div class="card">
-        <div class="card-hd">한국 증시 스크리너 · SCREENER</div>
-        <div class="tradingview-widget-container" style="height:480px">
+        <div class="card-hd">KOSDAQ · 코스닥</div>
+        <div class="tradingview-widget-container" style="height:340px">
           <div class="tradingview-widget-container__widget"></div>
-          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-screener.js" async>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js" async>
           {
+            "symbol": "KRX:KOSDAQ",
             "width": "100%",
-            "height": 480,
-            "defaultColumn": "overview",
-            "defaultScreen": "most_capitalized",
-            "market": "korea",
-            "showToolbar": true,
-            "colorTheme": "dark",
+            "height": "340",
             "locale": "kr",
-            "isTransparent": true
+            "interval": "D",
+            "range": "3M",
+            "timezone": "Asia/Seoul",
+            "theme": "dark",
+            "style": "1",
+            "backgroundColor": "rgba(13, 17, 23, 0)",
+            "gridColor": "rgba(30, 42, 53, 0.5)",
+            "hide_top_toolbar": false,
+            "hide_legend": false,
+            "allow_symbol_change": false,
+            "save_image": false,
+            "studies": [
+              {
+                "id": "MASimple@tv-basicstudies",
+                "inputs": { "length": 20 },
+                "override": { "Plot.linewidth": 1.5, "Plot.color": "#00c896" }
+              },
+              {
+                "id": "MASimple@tv-basicstudies",
+                "inputs": { "length": 120 },
+                "override": { "Plot.linewidth": 1.5, "Plot.color": "#f0b040" }
+              }
+            ],
+            "isTransparent": true,
+            "support_host": "https://www.tradingview.com"
           }
           </script>
         </div>
+        <div style="padding:6px 14px 10px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--border);">
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:18px;height:2px;background:#00c896;border-radius:1px;"></div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted);">MA 20</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:5px;">
+            <div style="width:18px;height:2px;background:#f0b040;border-radius:1px;"></div>
+            <span style="font-family:var(--mono);font-size:10px;color:var(--text-muted);">MA 120</span>
+          </div>
+          <span style="font-family:var(--mono);font-size:9px;color:var(--text-dim);margin-left:auto;">일봉 · 최근 3개월 · KST</span>
+        </div>
       </div>
+
     </div>
   </section>
 
