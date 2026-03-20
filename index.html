@@ -199,6 +199,15 @@
       transition: border-color .15s;
     }
     .idx-card:hover { border-color: rgba(255,255,255,.2); }
+    .prev-badge {
+      display: inline-block; margin-left: 6px;
+      font-size: 9px; color: var(--text-dim);
+      background: rgba(255,255,255,.07);
+      border: 1px solid var(--border);
+      border-radius: 3px; padding: 1px 4px;
+      vertical-align: middle; font-family: var(--mono);
+      letter-spacing: .04em;
+    }
     .idx-card-header {
       font-size: 13px; color: var(--text-muted);
       font-weight: 600; margin-bottom: 6px;
@@ -363,10 +372,10 @@
   <section>
     <div class="sec-label">₿ 비트코인 · BITCOIN</div>
     <div class="card">
-      <div class="tradingview-widget-container" style="height:200px">
+      <div class="tradingview-widget-container" style="height:320px">
         <div class="tradingview-widget-container__widget"></div>
         <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
-        {"symbol":"BITSTAMP:BTCUSD","width":"100%","height":200,"locale":"kr","dateRange":"1D","colorTheme":"dark","isTransparent":true,"autosize":false,"noTimeScale":false}
+        {"symbol":"BITSTAMP:BTCUSD","width":"100%","height":320,"locale":"kr","dateRange":"6M","colorTheme":"dark","isTransparent":true,"autosize":false,"noTimeScale":false}
         </script>
       </div>
     </div>
@@ -690,7 +699,7 @@ function toggleTheme() {
     const chgAbs  = chg  != null ? `${Math.abs(chg).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2})}` : '—';
     const pctStr  = pct  != null ? `(${sign(pct)}${fmt(pct,2)}%)` : '';
     return `<div class="idx-card">
-      <div class="idx-card-header">${item.name}<span style="font-size:10px;color:var(--text-dim);margin-left:6px;">${item.sub}</span></div>
+      <div class="idx-card-header">${item.name}<span style="font-size:10px;color:var(--text-dim);margin-left:6px;">${item.sub}</span>${item.note === 'prev_close' ? '<span class="prev-badge">전일 종가</span>' : ''}</div>
       <div class="idx-card-price">${priceStr}</div>
       <div class="idx-card-chg ${cc}">${arrow} ${chgAbs} ${pctStr}</div>
     </div>`;
