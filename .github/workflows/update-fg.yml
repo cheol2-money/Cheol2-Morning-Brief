@@ -44,10 +44,8 @@ jobs:
               ("^HSI",      "항셍",        "HSI"),
               ("000001.SS", "상하이 종합", "SHCOMP"),
               ("^TWII",     "대만 가권",   "TAIEX"),
-            ],
-            "india": [
-              ("^NSEI",  "니프티 50",    "NIFTY"),
-              ("^BSESN", "센섹스",       "SENSEX"),
+              ("^NSEI",     "니프티 50",   "NIFTY"),
+              ("^BSESN",    "센섹스",      "SENSEX"),
             ],
             "europe": [
               ("^STOXX50E", "유로스탁스 50", "SX5E"),
@@ -62,13 +60,12 @@ jobs:
           }
 
           COMMODITIES = [
-            ("GC=F",  "금 (Gold)",   "XAU/USD", "USD/oz"),
-            ("SI=F",  "은 (Silver)", "XAG/USD", "USD/oz"),
-            ("CL=F",  "WTI 원유",    "Crude",   "USD/bbl"),
-            ("BZ=F",  "브렌트유",    "Brent",   "USD/bbl"),
-            ("MCO=F", "두바이유",    "Dubai",   "USD/bbl"),
-            ("HG=F",  "구리 (Copper)", "COMEX", "USD/lb"),
-            ("NI=F",  "니켈 (Nickel)", "LME",   "USD/t"),
+            ("GC=F",  "금 (Gold)",      "XAU/USD", "USD/oz"),
+            ("SI=F",  "은 (Silver)",    "XAG/USD", "USD/oz"),
+            ("CL=F",  "WTI 원유",       "Crude",   "USD/bbl"),
+            ("BZ=F",  "브렌트유",       "Brent",   "USD/bbl"),
+            ("BZ=F",  "두바이유 (근사)", "Dubai≈Brent", "USD/bbl"),
+            ("HG=F",  "구리 (Copper)",  "COMEX",   "USD/lb"),
           ]
 
           RATES = [
@@ -81,10 +78,11 @@ jobs:
           def fetch(sym):
             try:
               t = yf.Ticker(sym)
-              hist = t.history(period="2d")
+              hist = t.history(period="5d")
               if hist.empty:
                 print(f"  [WARN] {sym}: empty history")
                 return None
+              # 최신 종가 기준
               price = float(hist['Close'].iloc[-1])
               prev  = float(hist['Close'].iloc[-2]) if len(hist) > 1 else price
               chg   = round(price - prev, 4)
@@ -103,21 +101,21 @@ jobs:
           for region, items in SYMBOLS.items():
             result["indices"][region] = []
             for sym, name, sub in items:
-              print(f"Fetching {sym}...")
+              print(f"Fetching {sym} ({name})...")
               q = fetch(sym)
               result["indices"][region].append(
                 {"sym": sym, "name": name, "sub": sub, "q": q}
               )
 
           for sym, name, sub, unit in COMMODITIES:
-            print(f"Fetching {sym}...")
+            print(f"Fetching {sym} ({name})...")
             q = fetch(sym)
             result["commodities"].append(
               {"sym": sym, "name": name, "sub": sub, "unit": unit, "q": q}
             )
 
           for sym, name, sub in RATES:
-            print(f"Fetching {sym}...")
+            print(f"Fetching {sym} ({name})...")
             q = fetch(sym)
             result["rates"].append(
               {"sym": sym, "name": name, "sub": sub, "q": q}
@@ -127,9 +125,9 @@ jobs:
             json.dump(result, f, ensure_ascii=False, indent=2)
 
           print(f"\n=== 완료 ===")
-          print(f"S&P 500 : {result['indices']['us'][0]['q']}")
-          print(f"BTC     : {result['indices']['crypto'][0]['q']}")
-          print(f"NIFTY   : {result['indices']['india'][0]['q']}")
+          print(f"S&P 500  : {result['indices']['us'][0]['q']}")
+          print(f"NIFTY    : {result['indices']['asia'][4]['q']}")
+          print(f"Copper   : {result['commodities'][5]['q']}")
           EOF
 
       - name: Fetch CNN Fear & Greed
