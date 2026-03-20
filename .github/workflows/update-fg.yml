@@ -18,15 +18,26 @@ jobs:
       - name: Fetch CNN Fear & Greed data
         run: |
           curl -s \
-            -H "Accept: application/json" \
-            -H "User-Agent: Mozilla/5.0 (compatible; dashboard/1.0)" \
+            -H "Accept: application/json, text/plain, */*" \
+            -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" \
+            -H "Referer: https://www.cnn.com/markets/fear-and-greed" \
+            -H "Origin: https://www.cnn.com" \
+            -L \
             "https://production.dataviz.cnn.io/index/fearandgreed/graphdata" \
             -o fg.json
 
-          if ! python3 -c "import json,sys; json.load(open('fg.json'))" 2>/dev/null; then
-            echo "Invalid JSON received, aborting."
-            exit 1
-          fi
+          echo "=== Response preview ==="
+          head -c 300 fg.json
+
+          python3 -c "
+          import json, sys
+          try:
+              d = json.load(open('fg.json'))
+              print('Score:', d['fear_and_greed']['score'])
+          except Exception as e:
+              print('ERROR:', e)
+              sys.exit(1)
+          "
 
       - name: Commit and push if changed
         run: |
