@@ -1,12 +1,12 @@
-name: Update Fear & Greed Data
+name: Update Market Data
 
 on:
   schedule:
-    - cron: '0,30 * * * *'
+    - cron: '0,30 * * * *'   # 30분마다
   workflow_dispatch:
 
 jobs:
-  update-fg:
+  update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -15,10 +15,109 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
+      - name: Install yfinance
+        run: pip install yfinance requests --break-system-packages -q
+
+      - name: Fetch all market data
+        run: |
+          python3 << 'EOF'
+          import json, time, datetime
+          import yfinance as yf
+
+          # ── 지수 심볼 ──
+          INDEX_SYMBOLS = {
+            "us": [
+              ("^GSPC",  "S&P 500",           "SPX"),
+              ("^IXIC",  "나스닥 종합",          "COMP"),
+              ("^NDX",   "나스닥 100",           "NDX"),
+              ("^DJI",   "다우존스",             "DJI"),
+              ("^VIX",   "VIX 공포지수",         "VIX"),
+              ("^SOX",   "필라델피아 반도체",      "SOX"),
+            ],
+            "kr": [
+              ("^KS11",  "코스피",    "KOSPI"),
+              ("^KQ11",  "코스닥",    "KOSDAQ"),
+              ("EWY",    "Korea ETF", "EWY"),
+            ],
+            "asia": [
+              ("^N225",      "니케이 225",  "NKY"),
+              ("^HSI",       "항셍",        "HSI"),
+              ("000001.SS",  "상하이 종합", "SHCOMP"),
+              ("^TWII",      "대만 가권",   "TAIEX"),
+            ],
+            "europe": [
+              ("^STOXX50E", "유로스탁스 50", "SX5E"),
+              ("^FTSE",     "FTSE 100",      "UKX"),
+              ("^GDAXI",    "DAX",           "DAX"),
+              ("^FCHI",     "CAC 40",        "CAC"),
+            ],
+          }
+
+          COMMODITY_SYMBOLS = [
+            ("GC=F",  "금 (Gold)",   "XAU/USD", "USD/oz"),
+            ("SI=F",  "은 (Silver)", "XAG/USD", "USD/oz"),
+            ("CL=F",  "WTI 원유",    "Crude",   "USD/bbl"),
+            ("BZ=F",  "브렌트유",    "Brent",   "USD/bbl"),
+          ]
+
+          RATE_SYMBOLS = [
+            ("^IRX",  "미국 단기 (13W)", "T-Bill"),
+            ("^FVX",  "미국 5년물",      "US5Y"),
+            ("^TNX",  "미국 10년물",     "US10Y"),
+            ("^TYX",  "미국 30년물",     "US30Y"),
+          ]
+
+          def fetch_quote(sym):
+            try:
+              t = yf.Ticker(sym)
+              info = t.fast_info
+              price = getattr(info, 'last_price', None)
+              prev  = getattr(info, 'previous_close', None)
+              if price is None or prev is None:
+                return None
+              chg = price - prev
+              pct = chg / prev * 100 if prev else 0
+              return {"price": round(price, 4), "change": round(chg, 4), "pct": round(pct, 4)}
+            except Exception as e:
+              print(f"  [WARN] {sym}: {e}")
+              return None
+
+          result = {"updated": datetime.datetime.utcnow().isoformat() + "Z", "indices": {}, "commodities": [], "rates": []}
+
+          # 지수
+          for region, items in INDEX_SYMBOLS.items():
+            result["indices"][region] = []
+            for sym, name, sub in items:
+              print(f"Fetching {sym} ({name})...")
+              q = fetch_quote(sym)
+              result["indices"][region].append({"sym": sym, "name": name, "sub": sub, "q": q})
+              time.sleep(0.3)
+
+          # 원자재
+          for sym, name, sub, unit in COMMODITY_SYMBOLS:
+            print(f"Fetching {sym} ({name})...")
+            q = fetch_quote(sym)
+            result["commodities"].append({"sym": sym, "name": name, "sub": sub, "unit": unit, "q": q})
+            time.sleep(0.3)
+
+          # 금리
+          for sym, name, sub in RATE_SYMBOLS:
+            print(f"Fetching {sym} ({name})...")
+            q = fetch_quote(sym)
+            result["rates"].append({"sym": sym, "name": name, "sub": sub, "q": q})
+            time.sleep(0.3)
+
+          with open("market.json", "w") as f:
+            json.dump(result, f, ensure_ascii=False, indent=2)
+
+          print("\n=== market.json 저장 완료 ===")
+          print(json.dumps(result["indices"]["us"][0], ensure_ascii=False))
+          EOF
+
       - name: Fetch CNN Fear & Greed data
         run: |
           curl -s \
-            -H "Accept: application/json, text/plain, */*" \
+            -H "Accept: application/json" \
             -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36" \
             -H "Referer: https://www.cnn.com/markets/fear-and-greed" \
             -H "Origin: https://www.cnn.com" \
@@ -26,23 +125,20 @@ jobs:
             "https://production.dataviz.cnn.io/index/fearandgreed/graphdata" \
             -o fg.json
 
-          echo "=== Response preview ==="
-          head -c 300 fg.json
-
           python3 -c "
           import json, sys
           try:
               d = json.load(open('fg.json'))
-              print('Score:', d['fear_and_greed']['score'])
+              print('F&G Score:', d['fear_and_greed']['score'])
           except Exception as e:
               print('ERROR:', e)
               sys.exit(1)
           "
 
-      - name: Commit and push if changed
+      - name: Commit and push
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add fg.json
-          git diff --cached --quiet || git commit -m "chore: update fear & greed data"
+          git add market.json fg.json
+          git diff --cached --quiet || git commit -m "chore: update market data"
           git push
