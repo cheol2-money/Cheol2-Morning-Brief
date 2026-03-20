@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>경공방 모닝 브리핑</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600&family=Noto+Sans+KR:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:         #080c10;
+      --bg2:        #0d1117;
+      --border:     #1e2a35;
+      --text:       #c9d8e8;
+      --text-muted: #5a7080;
+      --text-dim:   #3a5060;
+      --green:      #00c896;
+      --red:        #ff4060;
+      --gold:       #f0b040;
+      --mono: 'IBM Plex Mono', monospace;
+      --sans: 'Noto Sans KR', sans-serif;
+      --r: 4px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--bg); color:var(--text); font-family:var(--sans); font-size:13px; overflow-x:hidden; }
+    ::-webkit-scrollbar { width:5px; height:5px; }
+    ::-webkit-scrollbar-track { background:var(--bg); }
+    ::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px; }
+
+    /* ══ HEADER ══ */
+    .header {
+      background:var(--bg2); border-bottom:1px solid var(--border);
+      padding:12px 20px; display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:200; gap:12px; flex-wrap:wrap;
+    }
+    .h-left  { display:flex; align-items:center; gap:12px; }
+    .h-right { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .logo-dot {
+      width:8px; height:8px; flex-shrink:0; border-radius:50%;
+      background:var(--green); box-shadow:0 0 8px var(--green);
+      animation:pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+    .h-title { font-family:var(--mono); font-size:13px; font-weight:600; color:#fff; white-space:nowrap; letter-spacing:.04em; }
+    .h-sub   { font-family:var(--mono); font-size:10px; color:var(--text-muted); letter-spacing:.07em; white-space:nowrap; }
+    .live-badge {
+      display:flex; align-items:center; gap:5px;
+      background:rgba(0,200,150,.08); border:1px solid rgba(0,200,150,.2);
+      padding:4px 9px; border-radius:var(--r);
+      font-family:var(--mono); font-size:10px; color:var(--green); letter-spacing:.1em;
+    }
+    .live-dot { width:5px; height:5px; border-radius:50%; background:var(--green); animation:pulse 1.5s ease-in-out infinite; }
+    #clock { font-family:var(--mono); font-size:12px; color:var(--text-muted); letter-spacing:.04em; white-space:nowrap; }
+    .fg-chip {
+      display:flex; align-items:center; gap:6px;
+      background:rgba(240,176,64,.08); border:1px solid rgba(240,176,64,.25);
+      padding:5px 11px; border-radius:var(--r);
+      font-family:var(--mono); font-size:11px; color:var(--gold); white-space:nowrap;
+    }
+    .fg-chip-score { font-weight:600; font-size:13px; }
+
+    /* ══ TICKER ══ */
+    .ticker-wrap { border-bottom:1px solid var(--border); overflow:hidden; }
+
+    /* ══ MAIN ══ */
+    .main { padding:16px; display:flex; flex-direction:column; gap:20px; }
+    .sec-label {
+      font-family:var(--mono); font-size:10px; color:var(--text-muted);
+      letter-spacing:.15em; text-transform:uppercase;
+      margin-bottom:10px; display:flex; align-items:center; gap:8px;
+    }
+    .sec-label::after { content:''; flex:1; height:1px; background:var(--border); }
+    .card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--r); overflow:hidden; }
+    .card-hd {
+      padding:9px 14px; border-bottom:1px solid var(--border);
+      font-family:var(--mono); font-size:10px; color:var(--text-muted);
+      letter-spacing:.1em; text-transform:uppercase;
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .two-col { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .r-stack { display:flex; flex-direction:column; gap:16px; }
+    .m7-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:10px; }
+    .bot-row { display:grid; grid-template-columns:380px 1fr; gap:16px; align-items:start; }
+
+    /* ══ FEAR & GREED ══ */
+    .fg-card {
+      background:var(--bg2); border:1px solid var(--border); border-radius:var(--r);
+      padding:22px 18px 18px; display:flex; flex-direction:column; align-items:center; gap:16px;
+    }
+    .fg-card-ttl {
+      font-family:var(--mono); font-size:10px; color:var(--text-muted);
+      letter-spacing:.14em; align-self:flex-start; text-transform:uppercase;
+    }
+    .fg-gauge { position:relative; width:220px; height:125px; }
+    .fg-gauge svg { width:100%; height:100%; overflow:visible; }
+    .fg-score-wrap { text-align:center; }
+    .fg-num { font-family:var(--mono); font-size:52px; font-weight:600; line-height:1; color:#888; }
+    .fg-lbl { font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; margin-top:5px; color:#555; }
+    .fg-ts  { font-family:var(--mono); font-size:9px; color:var(--text-dim); margin-top:4px; }
+    .fg-hist {
+      display:grid; grid-template-columns:repeat(4,1fr); gap:10px; width:100%;
+      border-top:1px solid var(--border); padding-top:14px;
+    }
+    .fg-hcol { display:flex; flex-direction:column; align-items:center; gap:2px; }
+    .fg-hp  { font-family:var(--mono); font-size:9px; color:var(--text-dim); }
+    .fg-hn  { font-family:var(--mono); font-size:18px; font-weight:600; color:#888; }
+    .fg-hs  { font-family:var(--mono); font-size:9px; color:var(--text-muted); text-align:center; }
+    .fg-link { font-family:var(--mono); font-size:10px; color:var(--gold); opacity:.65; text-decoration:none; letter-spacing:.05em; }
+    .fg-link:hover { opacity:1; }
+    .ef{color:#ff4060} .f{color:#ff8030} .n{color:#f0d040} .g{color:#80d060} .eg{color:#00c896}
+
+    /* ══ FOOTER ══ */
+    .footer {
+      text-align:center; font-family:var(--mono); font-size:9px; color:var(--text-dim);
+      padding:18px 0 28px; letter-spacing:.06em; line-height:2;
+    }
+
+    /* ══════════════════════
+       RESPONSIVE
+    ══════════════════════ */
+    @media (min-width:769px) and (max-width:1200px) {
+      .m7-grid { grid-template-columns:repeat(4,1fr); }
+      .bot-row { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:768px) {
+      .header { padding:10px 12px; }
+      .h-sub  { display:none; }
+      #clock  { display:none; }
+      .main   { padding:10px; gap:14px; }
+      .two-col { grid-template-columns:1fr; }
+      .m7-grid { grid-template-columns:repeat(2,1fr); }
+      .bot-row { grid-template-columns:1fr; }
+      .fg-gauge { width:180px; height:100px; }
+      .fg-num   { font-size:40px; }
+      .fg-hist  { grid-template-columns:repeat(2,1fr); }
+      .live-badge span { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header class="header">
+  <div class="h-left">
+    <div class="logo-dot"></div>
+    <div>
+      <div class="h-title">경공방 모닝 브리핑</div>
+      <div class="h-sub">자본주의 생존일지 · 자산관리사 김병철 AFPK</div>
+    </div>
+  </div>
+  <div class="h-right">
+    <div class="live-badge"><div class="live-dot"></div><span>LIVE</span></div>
+    <div id="clock">--:--:--</div>
+    <div class="fg-chip" id="fg-chip">
+      <span id="fg-chip-emoji">😱</span>
+      F&amp;G&nbsp;<span class="fg-chip-score" id="fg-chip-score">...</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══ TICKER ══ -->
+<div class="ticker-wrap">
+  <div class="tradingview-widget-container">
+    <div class="tradingview-widget-container__widget"></div>
+    <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+    {"symbols":[
+      {"proName":"FOREXCOM:SPXUSD","title":"S&P 500"},
+      {"proName":"FOREXCOM:NSXUSD","title":"NASDAQ 100"},
+      {"proName":"CBOE:VIX","title":"VIX"},
+      {"proName":"KRX:KOSPI","title":"KOSPI"},
+      {"proName":"KRX:KOSDAQ","title":"KOSDAQ"},
+      {"proName":"AMEX:EWY","title":"EWY"},
+      {"proName":"FX_IDC:USDKRW","title":"USD/KRW"},
+      {"proName":"TVC:GOLD","title":"금"},
+      {"proName":"NYMEX:CL1!","title":"WTI"},
+      {"proName":"NASDAQ:NVDA","title":"NVDA"},
+      {"proName":"NASDAQ:AAPL","title":"AAPL"},
+      {"proName":"NASDAQ:MSFT","title":"MSFT"},
+      {"proName":"NASDAQ:META","title":"META"},
+      {"proName":"NASDAQ:TSLA","title":"TSLA"},
+      {"proName":"NASDAQ:GOOGL","title":"GOOGL"},
+      {"proName":"NASDAQ:AMZN","title":"AMZN"},
+      {"proName":"TVC:US10Y","title":"미국 10Y"},
+      {"proName":"TVC:KR10Y","title":"한국 10Y"}
+    ],"showSymbolLogo":true,"isTransparent":false,"displayMode":"adaptive","colorTheme":"dark","locale":"kr"}
+    </script>
+  </div>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="main">
+
+  <!-- 1. 글로벌 지수 -->
+  <section>
+    <div class="sec-label">글로벌 시장 · GLOBAL MARKETS</div>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-hd"><span>지수 · INDICES</span><span style="color:var(--text-dim);font-size:9px">TradingView</span></div>
+        <div class="tradingview-widget-container" style="height:600px">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+          {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":true,"width":"100%","height":"600","tabs":[{"title":"미국","symbols":[{"s":"FOREXCOM:SPXUSD","d":"S&P 500"},{"s":"FOREXCOM:NSXUSD","d":"나스닥 100"},{"s":"FOREXCOM:DJI","d":"다우존스"},{"s":"CBOE:VIX","d":"VIX"},{"s":"AMEX:SOX","d":"필라델피아 반도체"}]},{"title":"한국","symbols":[{"s":"KRX:KOSPI","d":"코스피"},{"s":"KRX:KOSDAQ","d":"코스닥"},{"s":"AMEX:EWY","d":"Korea ETF"}]},{"title":"아시아","symbols":[{"s":"INDEX:NKY","d":"니케이 225"},{"s":"SPREADEX:CHINA50","d":"CSI 300"},{"s":"HKEX:HSI","d":"항셍"},{"s":"TVC:TWII","d":"대만 가권"}]},{"title":"유럽","symbols":[{"s":"EUREX:FESX1!","d":"유로스탁스 50"},{"s":"SPREADEX:UK100","d":"FTSE 100"},{"s":"XETR:DAX","d":"DAX"},{"s":"EURONEXT:PX1","d":"CAC 40"}]}]}
+          </script>
+        </div>
+      </div>
+      <div class="r-stack">
+        <div class="card">
+          <div class="card-hd">환율 · FOREX</div>
+          <div class="tradingview-widget-container" style="height:260px">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-forex-cross-rates.js" async>
+            {"width":"100%","height":"260","currencies":["USD","KRW","JPY","EUR","CNY"],"isTransparent":true,"colorTheme":"dark","locale":"kr"}
+            </script>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd">원자재 · 금리</div>
+          <div class="tradingview-widget-container" style="height:300px">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js" async>
+            {"colorTheme":"dark","dateRange":"1D","showChart":false,"locale":"kr","isTransparent":true,"showSymbolLogo":false,"width":"100%","height":"300","tabs":[{"title":"원자재","symbols":[{"s":"NYMEX:CL1!","d":"WTI 원유"},{"s":"TVC:GOLD","d":"금"},{"s":"TVC:SILVER","d":"은"}]},{"title":"금리","symbols":[{"s":"TVC:US02Y","d":"미국 2년물"},{"s":"TVC:US10Y","d":"미국 10년물"},{"s":"TVC:KR10Y","d":"한국 10년물"},{"s":"TVC:KR03Y","d":"한국 3년물"}]}]}
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. M7 -->
+  <section>
+    <div class="sec-label">M7 빅테크 · MAGNIFICENT SEVEN</div>
+    <div class="m7-grid" id="m7-grid"></div>
+  </section>
+
+  <!-- 3. 섹터 히트맵 -->
+  <section>
+    <div class="sec-label">S&P 500 섹터 히트맵 · SECTOR HEATMAP</div>
+    <div class="card">
+      <div class="tradingview-widget-container" style="height:500px">
+        <div class="tradingview-widget-container__widget"></div>
+        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-stock-heatmap.js" async>
+        {"exchanges":[],"dataSource":"SPX500","grouping":"sector","blockSize":"market_cap_basic","blockColor":"change","locale":"kr","colorTheme":"dark","hasTopBar":false,"isZoomEnabled":true,"hasSymbolTooltip":true,"isMonoSize":false,"width":"100%","height":"500"}
+        </script>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. F&G + 경제캘린더 -->
+  <section>
+    <div class="sec-label">심리지표 · 경제일정 · SENTIMENT & CALENDAR</div>
+    <div class="bot-row">
+
+      <div class="fg-card">
+        <div class="fg-card-ttl">CNN Fear &amp; Greed Index — 30분 자동갱신</div>
+
+        <!-- 게이지 -->
+        <div class="fg-gauge">
+          <svg id="fg-svg" viewBox="0 0 220 125" xmlns="http://www.w3.org/2000/svg">
+            <path id="a-ef" d="" stroke="#ff4060" stroke-width="16" fill="none" stroke-linecap="butt" opacity=".2"/>
+            <path id="a-f"  d="" stroke="#ff8030" stroke-width="16" fill="none" stroke-linecap="butt" opacity=".2"/>
+            <path id="a-n"  d="" stroke="#f0d040" stroke-width="16" fill="none" stroke-linecap="butt" opacity=".2"/>
+            <path id="a-g"  d="" stroke="#80d060" stroke-width="16" fill="none" stroke-linecap="butt" opacity=".2"/>
+            <path id="a-eg" d="" stroke="#00c896" stroke-width="16" fill="none" stroke-linecap="butt" opacity=".2"/>
+            <path id="a-active" d="" stroke-width="16" fill="none" stroke-linecap="butt" opacity=".85"/>
+            <line id="fg-needle" x1="110" y1="112" x2="110" y2="30"
+              stroke="white" stroke-width="2.5" stroke-linecap="round"
+              style="transform-origin:110px 112px; transform:rotate(-90deg); transition:transform 1.2s cubic-bezier(.4,0,.2,1)"/>
+            <circle cx="110" cy="112" r="7" fill="var(--bg2)" stroke="white" stroke-width="2"/>
+            <text x="6"   y="116" font-size="8" font-family="IBM Plex Mono,monospace" fill="#ff4060" opacity=".7">EF</text>
+            <text x="48"  y="40"  font-size="8" font-family="IBM Plex Mono,monospace" fill="#ff8030" opacity=".7">FEAR</text>
+            <text x="96"  y="20"  font-size="8" font-family="IBM Plex Mono,monospace" fill="#f0d040" opacity=".7">N</text>
+            <text x="140" y="40"  font-size="8" font-family="IBM Plex Mono,monospace" fill="#80d060" opacity=".7">GREED</text>
+            <text x="186" y="116" font-size="8" font-family="IBM Plex Mono,monospace" fill="#00c896" opacity=".7">EG</text>
+          </svg>
+        </div>
+
+        <!-- 점수 -->
+        <div class="fg-score-wrap">
+          <div class="fg-num" id="fg-num">—</div>
+          <div class="fg-lbl" id="fg-lbl">Loading...</div>
+          <div class="fg-ts"  id="fg-ts"></div>
+        </div>
+
+        <!-- 히스토리 -->
+        <div class="fg-hist">
+          <div class="fg-hcol"><div class="fg-hp">전 일</div><div class="fg-hn" id="h-prev">—</div><div class="fg-hs" id="hs-prev">—</div></div>
+          <div class="fg-hcol"><div class="fg-hp">1주 전</div><div class="fg-hn" id="h-1w">—</div><div class="fg-hs" id="hs-1w">—</div></div>
+          <div class="fg-hcol"><div class="fg-hp">1달 전</div><div class="fg-hn" id="h-1m">—</div><div class="fg-hs" id="hs-1m">—</div></div>
+          <div class="fg-hcol"><div class="fg-hp">1년 전</div><div class="fg-hn" id="h-1y">—</div><div class="fg-hs" id="hs-1y">—</div></div>
+        </div>
+
+        <a href="https://www.cnn.com/markets/fear-and-greed" target="_blank" class="fg-link">
+          CNN 원본 페이지 →
+        </a>
+      </div>
+
+      <!-- 경제 캘린더 -->
+      <div class="card">
+        <div class="card-hd">주요 경제 일정 · ECONOMIC CALENDAR</div>
+        <div class="tradingview-widget-container" style="height:400px">
+          <div class="tradingview-widget-container__widget"></div>
+          <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-events.js" async>
+          {"colorTheme":"dark","isTransparent":true,"width":"100%","height":"400","locale":"kr","importanceFilter":"0,1","countryFilter":"us,kr,cn,jp,eu"}
+          </script>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<div class="footer">
+  자본주의 생존일지 · 자산관리사 김병철 AFPK<br>
+  본 대시보드는 투자 권유가 아닙니다 · Data: TradingView / CNN Money
+</div>
+
+<!-- ══════════════════════════════════════
+     SCRIPTS
+══════════════════════════════════════ -->
+<script>
+/* ── 1. KST 시계 ── */
+(function() {
+  function tick() {
+    const kst = new Date(Date.now() + 9*3600000);
+    const p = n => String(n).padStart(2,'0');
+    document.getElementById('clock').textContent =
+      `KST ${kst.getUTCFullYear()}.${p(kst.getUTCMonth()+1)}.${p(kst.getUTCDate())} ` +
+      `${p(kst.getUTCHours())}:${p(kst.getUTCMinutes())}:${p(kst.getUTCSeconds())}`;
+  }
+  tick(); setInterval(tick, 1000);
+})();
+
+/* ── 2. M7 위젯 생성 ── */
+(function() {
+  ['NVDA','AAPL','MSFT','GOOGL','AMZN','META','TSLA'].forEach(sym => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.innerHTML = `<div class="card-hd">${sym}</div>
+      <div class="tradingview-widget-container" style="height:160px">
+        <div class="tradingview-widget-container__widget"></div>
+      </div>`;
+    document.getElementById('m7-grid').appendChild(card);
+    const sc = document.createElement('script');
+    sc.type = 'text/javascript';
+    sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js';
+    sc.async = true;
+    sc.text = JSON.stringify({
+      symbol:`NASDAQ:${sym}`, width:'100%', height:160,
+      locale:'kr', dateRange:'1D', colorTheme:'dark',
+      isTransparent:true, autosize:false, noTimeScale:true
+    });
+    card.querySelector('.tradingview-widget-container').appendChild(sc);
+  });
+})();
+
+/* ── 3. Fear & Greed ── */
+(function() {
+  function grade(s) {
+    if (s<=24) return {l:'EXTREME FEAR',c:'ef',e:'😱',hex:'#ff4060'};
+    if (s<=44) return {l:'FEAR',        c:'f', e:'😰',hex:'#ff8030'};
+    if (s<=55) return {l:'NEUTRAL',     c:'n', e:'😐',hex:'#f0d040'};
+    if (s<=74) return {l:'GREED',       c:'g', e:'😏',hex:'#80d060'};
+               return {l:'EXTREME GREED',c:'eg',e:'🤑',hex:'#00c896'};
+  }
+
+  /* SVG 아크 */
+  const CX=110, CY=112, R=90;
+  function pt(deg){ const r=(deg-180)*Math.PI/180; return {x:CX+R*Math.cos(r),y:CY+R*Math.sin(r)}; }
+  function arc(s,e){
+    const a=180+s*1.8, b=180+e*1.8, p1=pt(a), p2=pt(b);
+    return `M${p1.x.toFixed(2)} ${p1.y.toFixed(2)} A${R} ${R} 0 0 1 ${p2.x.toFixed(2)} ${p2.y.toFixed(2)}`;
+  }
+  document.getElementById('a-ef').setAttribute('d',arc(0,20));
+  document.getElementById('a-f' ).setAttribute('d',arc(20,40));
+  document.getElementById('a-n' ).setAttribute('d',arc(40,60));
+  document.getElementById('a-g' ).setAttribute('d',arc(60,80));
+  document.getElementById('a-eg').setAttribute('d',arc(80,100));
+
+  function render(score, info) {
+    // 게이지
+    const act = document.getElementById('a-active');
+    act.setAttribute('d', arc(0, Math.min(score,100)));
+    act.setAttribute('stroke', info.hex);
+    document.getElementById('fg-needle').style.transform = `rotate(${-90+score*1.8}deg)`;
+    // 텍스트
+    const ne = document.getElementById('fg-num');
+    ne.textContent = Math.round(score); ne.className = `fg-num ${info.c}`;
+    const le = document.getElementById('fg-lbl');
+    le.textContent = info.l; le.className = `fg-lbl ${info.c}`;
+    // 헤더 칩
+    document.getElementById('fg-chip-score').textContent = Math.round(score);
+    document.getElementById('fg-chip-emoji').textContent = info.e;
+  }
+
+  function fillHist(idN, idS, v) {
+    if (v==null) return;
+    const g = grade(v);
+    const el = document.getElementById(idN);
+    el.textContent = Math.round(v); el.className = `fg-hn ${g.c}`;
+    document.getElementById(idS).textContent = g.l;
+  }
+
+  function nearest(data, daysAgo) {
+    const t = Date.now() - daysAgo*86400000;
+    let best=null, bd=Infinity;
+    (data||[]).forEach(pt => { const d=Math.abs(pt.x-t); if(d<bd){bd=d;best=pt;} });
+    return best?best.y:null;
+  }
+
+  async function load() {
+    // GitHub Actions가 주기적으로 갱신하는 로컬 파일 우선 시도
+    // 없으면 폴백 값 표시
+    try {
+      // 캐시 무력화용 타임스탬프
+      const res = await fetch(`./fg.json?t=${Math.floor(Date.now()/60000)}`, {cache:'no-store'});
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const j = await res.json();
+
+      const score = j.fear_and_greed.score;
+      render(score, grade(score));
+
+      if (j.fear_and_greed.timestamp) {
+        const d = new Date(j.fear_and_greed.timestamp);
+        document.getElementById('fg-ts').textContent =
+          `Updated: ${d.toLocaleDateString('ko-KR')} ${d.toLocaleTimeString('ko-KR',{hour:'2-digit',minute:'2-digit'})}`;
+      }
+
+      const series = (j.fear_and_greed_historical||{}).data||[];
+      fillHist('h-prev','hs-prev', nearest(series,1));
+      fillHist('h-1w',  'hs-1w',  nearest(series,7));
+      fillHist('h-1m',  'hs-1m',  nearest(series,30));
+      fillHist('h-1y',  'hs-1y',  nearest(series,365));
+
+    } catch(e) {
+      // fg.json 없음 = GitHub Actions 미설정 또는 첫 배포 전
+      console.warn('[F&G] fg.json 로드 실패:', e.message);
+      document.getElementById('fg-ts').textContent = '⚠ fg.json 없음 — Actions 설정 필요';
+      document.getElementById('fg-lbl').textContent = 'SETUP REQUIRED';
+    }
+  }
+
+  load();
+  // 30분마다 재시도 (Actions 주기와 맞춤)
+  setInterval(load, 30*60*1000);
+})();
+</script>
+
+</body>
+</html>
