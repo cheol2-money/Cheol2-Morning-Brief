@@ -1,5 +1,5 @@
 {
-  "updated": "2026-03-24T20:05:09.693132Z",
+  "updated": "2026-03-24T22:03:07.287546Z",
   "indices": {
     "us": [
       {
@@ -37,9 +37,9 @@
         "name": "VIX 공포지수",
         "sub": "VIX",
         "q": {
-          "price": 26.81,
-          "change": 0.66,
-          "pct": 2.5239
+          "price": 26.95,
+          "change": 0.8,
+          "pct": 3.0593
         }
       },
       {
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 69346.5078,
-          "change": -1568.3516,
-          "pct": -2.2116
+          "price": 70293.4531,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 2117.4097,
-          "change": -34.7363,
-          "pct": -1.614
+          "price": 2147.4375,
+          "change": NaN,
+          "pct": NaN
         }
       }
     ]
@@ -225,9 +225,9 @@
       "sub": "XAU/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 4400.0,
-        "change": -4.1001,
-        "pct": -0.0931
+        "price": 4474.8999,
+        "change": 70.7998,
+        "pct": 1.6076
       }
     },
     {
@@ -236,9 +236,9 @@
       "sub": "XAG/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 69.65,
-        "change": 0.601,
-        "pct": 0.8704
+        "price": 71.445,
+        "change": 2.396,
+        "pct": 3.47
       }
     },
     {
@@ -247,9 +247,9 @@
       "sub": "Crude",
       "unit": "USD/bbl",
       "q": {
-        "price": 91.69,
-        "change": 3.56,
-        "pct": 4.0395
+        "price": 88.39,
+        "change": 0.26,
+        "pct": 0.295
       }
     },
     {
@@ -258,9 +258,9 @@
       "sub": "Brent",
       "unit": "USD/bbl",
       "q": {
-        "price": 103.56,
-        "change": 3.62,
-        "pct": 3.6222
+        "price": 100.04,
+        "change": 0.1,
+        "pct": 0.1001
       }
     },
     {
@@ -276,9 +276,9 @@
       "sub": "COMEX",
       "unit": "USD/lb",
       "q": {
-        "price": 5.4555,
-        "change": 0.016,
-        "pct": 0.2941
+        "price": 5.558,
+        "change": 0.1185,
+        "pct": 2.1785
       }
     },
     {
