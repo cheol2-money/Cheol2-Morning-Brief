@@ -1,5 +1,5 @@
 {
-  "updated": "2026-05-01T20:08:08.136528Z",
+  "updated": "2026-05-01T21:26:40.182306Z",
   "indices": {
     "us": [
       {
@@ -37,9 +37,9 @@
         "name": "VIX 공포지수",
         "sub": "VIX",
         "q": {
-          "price": 16.9,
-          "change": 0.01,
-          "pct": 0.0592
+          "price": 16.99,
+          "change": 0.1,
+          "pct": 0.5921
         }
       },
       {
@@ -85,9 +85,9 @@
         "name": "Korea ETF",
         "sub": "EWY",
         "q": {
-          "price": 161.985,
-          "change": 1.225,
-          "pct": 0.762
+          "price": 162.0,
+          "change": 1.24,
+          "pct": 0.7713
         }
       }
     ],
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 78334.3906,
-          "change": 2030.0703,
-          "pct": 2.6605
+          "price": 77990.1094,
+          "change": 1685.7891,
+          "pct": 2.2093
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 2304.03,
-          "change": 47.7788,
-          "pct": 2.1176
+          "price": 2289.03,
+          "change": 32.7788,
+          "pct": 1.4528
         }
       }
     ]
@@ -225,9 +225,9 @@
       "sub": "XAU/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 4621.5,
-        "change": 6.7998,
-        "pct": 0.1474
+        "price": 4625.6001,
+        "change": 10.8999,
+        "pct": 0.2362
       }
     },
     {
@@ -236,9 +236,9 @@
       "sub": "XAG/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 75.94,
-        "change": 2.406,
-        "pct": 3.272
+        "price": 75.84,
+        "change": 2.306,
+        "pct": 3.136
       }
     },
     {
@@ -247,9 +247,9 @@
       "sub": "Crude",
       "unit": "USD/bbl",
       "q": {
-        "price": 102.13,
-        "change": -2.94,
-        "pct": -2.7981
+        "price": 102.5,
+        "change": -2.57,
+        "pct": -2.446
       }
     },
     {
@@ -258,9 +258,9 @@
       "sub": "Brent",
       "unit": "USD/bbl",
       "q": {
-        "price": 108.48,
-        "change": -5.53,
-        "pct": -4.8505
+        "price": 108.83,
+        "change": -5.18,
+        "pct": -4.5435
       }
     },
     {
@@ -276,9 +276,9 @@
       "sub": "COMEX",
       "unit": "USD/lb",
       "q": {
-        "price": 5.97,
-        "change": 0.044,
-        "pct": 0.7425
+        "price": 5.9645,
+        "change": 0.0385,
+        "pct": 0.6497
       }
     },
     {
