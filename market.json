@@ -1,5 +1,5 @@
 {
-  "updated": "2026-06-27T20:11:57.267259Z",
+  "updated": "2026-06-27T21:38:59.934642Z",
   "indices": {
     "us": [
       {
@@ -7,9 +7,9 @@
         "name": "S&P 500",
         "sub": "SPX",
         "q": {
-          "price": 7354.02,
-          "change": -3.4702,
-          "pct": -0.0472
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -17,9 +17,9 @@
         "name": "나스닥 종합",
         "sub": "COMP",
         "q": {
-          "price": 25297.6191,
-          "change": -60.9805,
-          "pct": -0.2405
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -27,9 +27,9 @@
         "name": "다우존스",
         "sub": "DJI",
         "q": {
-          "price": 51876.1094,
-          "change": -44.5117,
-          "pct": -0.0857
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -37,9 +37,9 @@
         "name": "VIX 공포지수",
         "sub": "VIX",
         "q": {
-          "price": 18.41,
-          "change": -0.48,
-          "pct": -2.541
+          "price": 18.89,
+          "change": 0.26,
+          "pct": 1.3956
         }
       },
       {
@@ -47,9 +47,9 @@
         "name": "필라델피아 반도체",
         "sub": "SOX",
         "q": {
-          "price": 13203.5703,
-          "change": -737.2998,
-          "pct": -5.2888
+          "price": 13940.8701,
+          "change": 482.6699,
+          "pct": 3.5864
         }
       }
     ],
@@ -59,9 +59,9 @@
         "name": "코스피",
         "sub": "KOSPI",
         "q": {
-          "price": 8411.21,
-          "change": -519.0898,
-          "pct": -5.8127
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -69,9 +69,9 @@
         "name": "코스닥",
         "sub": "KOSDAQ",
         "q": {
-          "price": 851.37,
-          "change": -36.44,
-          "pct": -4.1045
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -85,9 +85,9 @@
         "name": "Korea ETF",
         "sub": "EWY",
         "q": {
-          "price": 197.28,
-          "change": -7.72,
-          "pct": -3.7659
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       }
     ],
@@ -97,9 +97,9 @@
         "name": "니케이 225",
         "sub": "NKY",
         "q": {
-          "price": 69360.8828,
-          "change": -3005.4609,
-          "pct": -4.1531
+          "price": 72366.3438,
+          "change": 3191.375,
+          "pct": 4.6135
         }
       },
       {
@@ -107,9 +107,9 @@
         "name": "항셍",
         "sub": "HSI",
         "q": {
-          "price": 22671.8594,
-          "change": -405.0508,
-          "pct": -1.7552
+          "price": 23076.9102,
+          "change": -335.2695,
+          "pct": -1.432
         }
       },
       {
@@ -117,9 +117,9 @@
         "name": "상하이 종합",
         "sub": "SHCOMP",
         "q": {
-          "price": 4027.2649,
-          "change": -93.0159,
-          "pct": -2.2575
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -127,9 +127,9 @@
         "name": "대만 가권",
         "sub": "TAIEX",
         "q": {
-          "price": 44571.7617,
-          "change": -1683.5,
-          "pct": -3.6396
+          "price": 46255.2617,
+          "change": 211.6602,
+          "pct": 0.4597
         }
       },
       {
@@ -169,9 +169,9 @@
         "name": "FTSE 100",
         "sub": "UKX",
         "q": {
-          "price": 10508.0,
-          "change": -21.9004,
-          "pct": -0.208
+          "price": 10529.9004,
+          "change": 68.3008,
+          "pct": 0.6529
         }
       },
       {
@@ -179,9 +179,9 @@
         "name": "DAX",
         "sub": "DAX",
         "q": {
-          "price": 24671.2207,
-          "change": -323.6094,
-          "pct": -1.2947
+          "price": 24994.8301,
+          "change": 254.4707,
+          "pct": 1.0286
         }
       },
       {
@@ -189,9 +189,9 @@
         "name": "CAC 40",
         "sub": "CAC",
         "q": {
-          "price": 8384.8701,
-          "change": -46.7402,
-          "pct": -0.5543
+          "price": 8431.6104,
+          "change": 46.1201,
+          "pct": 0.55
         }
       }
     ],
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 60181.6602,
-          "change": 165.2305,
-          "pct": 0.2753
+          "price": 60257.75,
+          "change": 241.3203,
+          "pct": 0.4021
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 1579.48,
-          "change": 2.8639,
-          "pct": 0.1816
+          "price": 1579.04,
+          "change": 2.424,
+          "pct": 0.1537
         }
       }
     ]
