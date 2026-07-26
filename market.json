@@ -1,5 +1,5 @@
 {
-  "updated": "2026-07-26T16:05:29.945937Z",
+  "updated": "2026-07-26T17:33:57.527342Z",
   "indices": {
     "us": [
       {
@@ -59,9 +59,9 @@
         "name": "코스피",
         "sub": "KOSPI",
         "q": {
-          "price": NaN,
-          "change": NaN,
-          "pct": NaN
+          "price": 7096.8901,
+          "change": 299.1899,
+          "pct": 4.4013
         }
       },
       {
@@ -69,9 +69,9 @@
         "name": "코스닥",
         "sub": "KOSDAQ",
         "q": {
-          "price": NaN,
-          "change": NaN,
-          "pct": NaN
+          "price": 790.28,
+          "change": 39.19,
+          "pct": 5.2178
         }
       },
       {
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 64676.2305,
-          "change": 364.418,
-          "pct": 0.5666
+          "price": 64689.9688,
+          "change": 378.1562,
+          "pct": 0.588
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 1911.12,
-          "change": 37.8976,
-          "pct": 2.0231
+          "price": 1913.0601,
+          "change": 39.8376,
+          "pct": 2.1267
         }
       }
     ]
