@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-29T20:45:12.880115Z",
+  "updated": "2026-08-29T23:09:33.354925Z",
   "indices": {
     "us": [
       {
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 78134.4609,
-          "change": -2123.0781,
-          "pct": -2.6453
+          "price": 78211.2109,
+          "change": -2046.3281,
+          "pct": -2.5497
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 2453.2,
-          "change": -57.2102,
-          "pct": -2.2789
+          "price": 2455.01,
+          "change": -55.4001,
+          "pct": -2.2068
         }
       }
     ]
@@ -225,9 +225,9 @@
       "sub": "XAU/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 4478.1001,
-        "change": -131.6001,
-        "pct": -2.8549
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -236,9 +236,9 @@
       "sub": "XAG/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 66.995,
-        "change": -2.434,
-        "pct": -3.5057
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -247,9 +247,9 @@
       "sub": "Crude",
       "unit": "USD/bbl",
       "q": {
-        "price": 83.4,
-        "change": -0.13,
-        "pct": -0.1556
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -258,9 +258,9 @@
       "sub": "Brent",
       "unit": "USD/bbl",
       "q": {
-        "price": 89.31,
-        "change": -0.39,
-        "pct": -0.4348
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -276,9 +276,9 @@
       "sub": "COMEX",
       "unit": "USD/lb",
       "q": {
-        "price": 6.562,
-        "change": -0.025,
-        "pct": -0.3795
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
