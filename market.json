@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-29T01:51:54.325386Z",
+  "updated": "2026-08-29T08:49:34.662164Z",
   "indices": {
     "us": [
       {
@@ -7,9 +7,9 @@
         "name": "S&P 500",
         "sub": "SPX",
         "q": {
-          "price": 7711.7598,
-          "change": -19.2305,
-          "pct": -0.2487
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -17,9 +17,9 @@
         "name": "나스닥 종합",
         "sub": "COMP",
         "q": {
-          "price": 26402.4238,
-          "change": -138.9258,
-          "pct": -0.5234
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -27,9 +27,9 @@
         "name": "다우존스",
         "sub": "DJI",
         "q": {
-          "price": 53559.9883,
-          "change": -9.4531,
-          "pct": -0.0176
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -37,9 +37,9 @@
         "name": "VIX 공포지수",
         "sub": "VIX",
         "q": {
-          "price": 14.43,
-          "change": -0.08,
-          "pct": -0.5513
+          "price": 14.51,
+          "change": -0.7,
+          "pct": -4.6022
         }
       },
       {
@@ -47,9 +47,9 @@
         "name": "필라델피아 반도체",
         "sub": "SOX",
         "q": {
-          "price": 11469.6621,
-          "change": -412.5078,
-          "pct": -3.4717
+          "price": 11882.1699,
+          "change": 270.9297,
+          "pct": 2.3333
         }
       }
     ],
@@ -85,9 +85,9 @@
         "name": "Korea ETF",
         "sub": "EWY",
         "q": {
-          "price": 180.2,
-          "change": -1.94,
-          "pct": -1.0651
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       }
     ],
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 77834.9766,
-          "change": -2422.5625,
-          "pct": -3.0185
+          "price": 77612.7188,
+          "change": -2644.8203,
+          "pct": -3.2954
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 2445.26,
-          "change": -65.1501,
-          "pct": -2.5952
+          "price": 2433.8601,
+          "change": -76.55,
+          "pct": -3.0493
         }
       }
     ]
@@ -225,9 +225,9 @@
       "sub": "XAU/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 4504.1001,
-        "change": -105.6001,
-        "pct": -2.2908
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -236,9 +236,9 @@
       "sub": "XAG/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 67.09,
-        "change": -2.339,
-        "pct": -3.3689
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -247,9 +247,9 @@
       "sub": "Crude",
       "unit": "USD/bbl",
       "q": {
-        "price": 83.44,
-        "change": -0.09,
-        "pct": -0.1077
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -258,9 +258,9 @@
       "sub": "Brent",
       "unit": "USD/bbl",
       "q": {
-        "price": 88.29,
-        "change": -1.41,
-        "pct": -1.5719
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -276,9 +276,9 @@
       "sub": "COMEX",
       "unit": "USD/lb",
       "q": {
-        "price": 6.64,
-        "change": 0.053,
-        "pct": 0.8046
+        "price": NaN,
+        "change": NaN,
+        "pct": NaN
       }
     },
     {
@@ -295,9 +295,9 @@
       "name": "미국 단기 (13W)",
       "sub": "T-Bill",
       "q": {
-        "price": 3.73,
-        "change": 0.052,
-        "pct": 1.4138
+        "price": 3.678,
+        "change": -0.012,
+        "pct": -0.3252
       }
     },
     {
@@ -305,9 +305,9 @@
       "name": "미국 5년물",
       "sub": "US5Y",
       "q": {
-        "price": 4.481,
-        "change": 0.085,
-        "pct": 1.9336
+        "price": 4.396,
+        "change": 0.015,
+        "pct": 0.3424
       }
     },
     {
@@ -315,9 +315,9 @@
       "name": "미국 10년물",
       "sub": "US10Y",
       "q": {
-        "price": 4.72,
-        "change": 0.048,
-        "pct": 1.0274
+        "price": 4.672,
+        "change": 0.008,
+        "pct": 0.1715
       }
     },
     {
@@ -325,9 +325,9 @@
       "name": "미국 30년물",
       "sub": "US30Y",
       "q": {
-        "price": 5.206,
-        "change": 0.015,
-        "pct": 0.289
+        "price": 5.191,
+        "change": 0.005,
+        "pct": 0.0964
       }
     }
   ]
