@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-03T23:07:57.533898Z",
+  "updated": "2026-09-04T01:12:51.056588Z",
   "indices": {
     "us": [
       {
@@ -59,9 +59,9 @@
         "name": "코스피",
         "sub": "KOSPI",
         "q": {
-          "price": 6562.7202,
-          "change": -273.0796,
-          "pct": -3.9948
+          "price": 6678.8398,
+          "change": 116.1196,
+          "pct": 1.7694
         }
       },
       {
@@ -69,9 +69,9 @@
         "name": "코스닥",
         "sub": "KOSDAQ",
         "q": {
-          "price": 803.98,
-          "change": -17.27,
-          "pct": -2.1029
+          "price": 807.35,
+          "change": 3.37,
+          "pct": 0.4192
         }
       },
       {
@@ -85,9 +85,9 @@
         "name": "Korea ETF",
         "sub": "EWY",
         "q": {
-          "price": 180.56,
-          "change": 1.7,
-          "pct": 0.9505
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       }
     ],
@@ -97,9 +97,9 @@
         "name": "니케이 225",
         "sub": "NKY",
         "q": {
-          "price": 64325.6406,
-          "change": -1889.7031,
-          "pct": -2.8539
+          "price": 64815.4805,
+          "change": 489.8398,
+          "pct": 0.7615
         }
       },
       {
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 81203.9922,
-          "change": 3903.5156,
-          "pct": 5.0498
+          "price": 81036.5625,
+          "change": 3736.0859,
+          "pct": 4.8332
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 2498.73,
-          "change": 107.229,
-          "pct": 4.4838
+          "price": 2506.6499,
+          "change": 115.1489,
+          "pct": 4.8149
         }
       }
     ]
@@ -225,9 +225,9 @@
       "sub": "XAU/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 4521.7998,
-        "change": 155.5,
-        "pct": 3.5614
+        "price": 4527.7998,
+        "change": 161.5,
+        "pct": 3.6988
       }
     },
     {
@@ -236,9 +236,9 @@
       "sub": "XAG/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 67.585,
-        "change": 2.862,
-        "pct": 4.4219
+        "price": 67.735,
+        "change": 3.012,
+        "pct": 4.6537
       }
     },
     {
@@ -247,9 +247,9 @@
       "sub": "Crude",
       "unit": "USD/bbl",
       "q": {
-        "price": 91.76,
-        "change": 0.75,
-        "pct": 0.8241
+        "price": 91.6,
+        "change": 0.59,
+        "pct": 0.6483
       }
     },
     {
@@ -258,9 +258,9 @@
       "sub": "Brent",
       "unit": "USD/bbl",
       "q": {
-        "price": 95.82,
-        "change": 0.19,
-        "pct": 0.1987
+        "price": 95.72,
+        "change": 0.09,
+        "pct": 0.0941
       }
     },
     {
@@ -276,9 +276,9 @@
       "sub": "COMEX",
       "unit": "USD/lb",
       "q": {
-        "price": 6.6745,
-        "change": 0.1735,
-        "pct": 2.6688
+        "price": 6.68,
+        "change": 0.179,
+        "pct": 2.7534
       }
     },
     {
