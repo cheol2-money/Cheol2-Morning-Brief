@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22T23:44:30.069644Z",
+  "updated": "2026-09-23T04:13:28.667600Z",
   "indices": {
     "us": [
       {
@@ -7,9 +7,9 @@
         "name": "S&P 500",
         "sub": "SPX",
         "q": {
-          "price": 7764.6401,
-          "change": -0.0601,
-          "pct": -0.0008
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -17,9 +17,9 @@
         "name": "나스닥 종합",
         "sub": "COMP",
         "q": {
-          "price": 27244.2773,
-          "change": 122.1875,
-          "pct": 0.4505
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -27,9 +27,9 @@
         "name": "다우존스",
         "sub": "DJI",
         "q": {
-          "price": 51863.6914,
-          "change": -185.1367,
-          "pct": -0.3557
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       },
       {
@@ -47,9 +47,9 @@
         "name": "필라델피아 반도체",
         "sub": "SOX",
         "q": {
-          "price": 12689.8203,
-          "change": 256.6504,
-          "pct": 2.0642
+          "price": 12433.1699,
+          "change": 511.4795,
+          "pct": 4.2903
         }
       }
     ],
@@ -59,9 +59,9 @@
         "name": "코스피",
         "sub": "KOSPI",
         "q": {
-          "price": 7007.7202,
-          "change": 113.4902,
-          "pct": 1.6462
+          "price": 7037.8799,
+          "change": 30.1597,
+          "pct": 0.4304
         }
       },
       {
@@ -69,9 +69,9 @@
         "name": "코스닥",
         "sub": "KOSDAQ",
         "q": {
-          "price": 836.27,
-          "change": 9.15,
-          "pct": 1.1062
+          "price": 842.14,
+          "change": 5.87,
+          "pct": 0.7019
         }
       },
       {
@@ -85,9 +85,9 @@
         "name": "Korea ETF",
         "sub": "EWY",
         "q": {
-          "price": 192.62,
-          "change": 3.46,
-          "pct": 1.8291
+          "price": NaN,
+          "change": NaN,
+          "pct": NaN
         }
       }
     ],
@@ -107,9 +107,9 @@
         "name": "항셍",
         "sub": "HSI",
         "q": {
-          "price": 25042.7109,
-          "change": 291.9316,
-          "pct": 1.1795
+          "price": 24897.6094,
+          "change": -145.1016,
+          "pct": -0.5794
         }
       },
       {
@@ -117,9 +117,9 @@
         "name": "상하이 종합",
         "sub": "SHCOMP",
         "q": {
-          "price": NaN,
-          "change": NaN,
-          "pct": NaN
+          "price": 3938.0801,
+          "change": -11.8269,
+          "pct": -0.2994
         }
       },
       {
@@ -127,9 +127,9 @@
         "name": "대만 가권",
         "sub": "TAIEX",
         "q": {
-          "price": 47718.8398,
-          "change": 538.0898,
-          "pct": 1.1405
+          "price": 48059.75,
+          "change": 340.9102,
+          "pct": 0.7144
         }
       },
       {
@@ -137,9 +137,9 @@
         "name": "니프티 50",
         "sub": "NIFTY",
         "q": {
-          "price": 23414.3008,
-          "change": 67.9004,
-          "pct": 0.2908
+          "price": 23378.9004,
+          "change": -35.4004,
+          "pct": -0.1512
         }
       },
       {
@@ -147,9 +147,9 @@
         "name": "센섹스",
         "sub": "SENSEX",
         "q": {
-          "price": 74858.9922,
-          "change": 564.0312,
-          "pct": 0.7592
+          "price": 74671.2578,
+          "change": -187.7344,
+          "pct": -0.2508
         }
       }
     ],
@@ -201,9 +201,9 @@
         "name": "비트코인",
         "sub": "BTC/USD",
         "q": {
-          "price": 86138.8984,
-          "change": -464.0156,
-          "pct": -0.5358
+          "price": 86855.1094,
+          "change": 252.1953,
+          "pct": 0.2912
         }
       },
       {
@@ -211,9 +211,9 @@
         "name": "이더리움",
         "sub": "ETH/USD",
         "q": {
-          "price": 2752.8301,
-          "change": -23.6382,
-          "pct": -0.8514
+          "price": 2777.0601,
+          "change": 0.5918,
+          "pct": 0.0213
         }
       }
     ]
@@ -225,9 +225,9 @@
       "sub": "XAU/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 4402.2998,
-        "change": 18.3999,
-        "pct": 0.4197
+        "price": 4381.1001,
+        "change": 4.7002,
+        "pct": 0.1074
       }
     },
     {
@@ -236,9 +236,9 @@
       "sub": "XAG/USD",
       "unit": "USD/oz",
       "q": {
-        "price": 67.955,
-        "change": 2.13,
-        "pct": 3.2359
+        "price": 67.125,
+        "change": 1.193,
+        "pct": 1.8094
       }
     },
     {
@@ -247,9 +247,9 @@
       "sub": "Crude",
       "unit": "USD/bbl",
       "q": {
-        "price": 89.65,
-        "change": -6.13,
-        "pct": -6.4001
+        "price": 89.19,
+        "change": -5.4,
+        "pct": -5.7088
       }
     },
     {
@@ -258,9 +258,9 @@
       "sub": "Brent",
       "unit": "USD/bbl",
       "q": {
-        "price": 98.52,
-        "change": -1.82,
-        "pct": -1.8138
+        "price": 98.42,
+        "change": -0.83,
+        "pct": -0.8363
       }
     },
     {
@@ -276,9 +276,9 @@
       "sub": "COMEX",
       "unit": "USD/lb",
       "q": {
-        "price": 6.911,
-        "change": 0.2245,
-        "pct": 3.3575
+        "price": 6.828,
+        "change": 0.0685,
+        "pct": 1.0134
       }
     },
     {
